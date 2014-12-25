@@ -1,0 +1,21 @@
+{
+  "name": "anthParticle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cyParticle"
+  ],
+  "author": "ijse",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "gulp-mocha": "^2.0.0",
+    "run-sequence": "^1.0.2",
+    "should": "^4.4.1"
+  }
+}
