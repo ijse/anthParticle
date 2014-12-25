@@ -7,6 +7,9 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 
+var browserify = require('gulp-browserify');
+var rename = require('gulp-rename');
+
 gulp.task('jshint', function() {
   return gulp.src([
       '*.js',
@@ -22,7 +25,14 @@ gulp.task('test', function() {
 });
 
 gulp.task('build', function() {
-  // todo: uglify, copy, ...
+  // todo: browserify, uglify, copy, ...
+  gulp.src('index.js')
+    .pipe(browserify({
+      insertGlobals: false,
+      debug: true
+    }))
+    .pipe(rename('anthParticle.js'))
+    .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('watch', function() {
