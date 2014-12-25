@@ -5,7 +5,7 @@ var path = require('path');
 
 var testResConfigFile = path.join(__dirname, 'res/snow/config.xml');
 
-describe('Test', function() {
+describe('Test anthParticle', function() {
   "use strict";
   var xmlParser = require('../lib/xmlParser.js');
   it('parse simple xml text', function(done) {
