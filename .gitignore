@@ -1,6 +1,4 @@
-node_modules
 npm-debug.log
-dist
 
 # Logs
 logs
@@ -30,4 +28,3 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
->>>>>>> f251cb40f7b5172228e917622c943e5896e5a881
