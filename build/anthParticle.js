@@ -18,11 +18,18 @@ var xmlParser = require('./xmlParser.js');
 var AnimationFrame = require('animation-frame');
 var helper = require('./helper.js');
 
+AnimationFrame.FRAME_RATE = 30;
 module.exports = Particle;
 function Particle(options) {
+  this.frameId = 0;
   this.animationFrame = new AnimationFrame(options.fps);
 
   this._id = options.id || ('id_' + (+ new Date()));
+
+  this.status = {
+    animating: false
+  };
+
   Particle._stats.create++;
 }
 
@@ -38,9 +45,34 @@ Particle.create = function(options) {
 };
 
 Particle.prototype.loadXml = function(xmlStr) {
-  return xmlParser.parse(xmlStr);
+  this.animData = xmlParser.parse(xmlStr);
+  return this.animData;
 };
 
+Particle.prototype.start = function() {
+  var AF = this.animationFrame;
+  var fn = this.draw;
+  var status = this.status;
+
+  this.status.animating = true;
+  this.frameId = (function loop() {
+    return AF.request(function() {
+      fn();
+      if(status.animating) {
+        loop();
+      }
+    });
+  }());
+};
+
+Particle.prototype.stop = function() {
+  this.animationFrame.cancel(this.frameId);
+  this.status.animating = false;
+};
+
+Particle.prototype.draw = function() {
+  console.log('-----');
+};
 
 },{"./helper.js":3,"./xmlParser.js":4,"animation-frame":5}],3:[function(require,module,exports){
 

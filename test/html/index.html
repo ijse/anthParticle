@@ -18,7 +18,7 @@
       var myCtx = myCanvas.getContext('2d');
 
       var particle = new anthParticle({
-        fps: 30
+        fps: 1
       });
 
       // get xml
@@ -34,6 +34,13 @@
           .then(function(result) {
             console.log("config.xml parse result: ", result);
           });
+
+        particle.start();
+
+        setTimeout(function() {
+          console.log('stop!');
+          particle.stop();
+        }, 5000);
       });
       // todo: draw something with Particle
 
