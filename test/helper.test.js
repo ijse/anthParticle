@@ -7,11 +7,7 @@ describe('Helper', function() {
   it('check integrality', function() {
     helper.should.have.a.type('object');
     helper.should.have.properties([
-        'extend',
-        'isArray',
-        'isDate',
-        'isRegExp',
-        'isNum'
+        'extend', 'isArray', 'isDate', 'isRegExp', 'isNum'
       ]);
   });
 
