@@ -42,8 +42,8 @@ describe('Test anthParticle', function() {
             'move_to_rect', 'rotate', 'alpha', 'scale'
           ]);
 
-        mode.chance_range.should.have.property('text');
-        mode.chance_range.text[0].should.be.an.String;
+        mode.chance_range.should.have.property('values');
+        mode.chance_range.values[0].should.be.an.String;
 
         done();
       });

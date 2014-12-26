@@ -14,10 +14,28 @@
   <script>
   $(function() {
 
-      function bootstrap() {
-        var myCanvas = document.getElementById('my');
-        var myCtx = myCanvas.getContext('2d');
-      }
+      var myCanvas = document.getElementById('my');
+      var myCtx = myCanvas.getContext('2d');
+
+      var particle = new anthParticle({
+        fps: 30
+      });
+
+      // get xml
+      $.ajax({
+        type: 'GET',
+        url: '../res/snow/config.xml',
+        dataType: 'text'
+      }).success(function(data) {
+
+        // parse xml and output
+        particle
+          .loadXml(data)
+          .then(function(result) {
+            console.log(result);
+          });
+      });
+      // todo: draw something with Particle
 
   });
   </script>

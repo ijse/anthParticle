@@ -62,7 +62,7 @@ gulp.task('build', function() {
   gulp.src('index.js')
     .pipe(browserify({
       insertGlobals: false,
-      debug: true
+      debug: false
     }))
     .pipe(rename('anthParticle.js'))
     .pipe(gulp.dest('./build/'));
