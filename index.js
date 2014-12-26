@@ -3,4 +3,8 @@
 
 var anthParticle = require('./lib/anthParticle.js');
 
-console.log(anthParticle);
+module.exports = anthParticle;
+
+if(window) {
+  window.anthParticle = anthParticle;
+}

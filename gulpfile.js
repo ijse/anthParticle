@@ -12,7 +12,15 @@ var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
+var livereload = require('gulp-livereload');
+
 var restartCount = 0;
+
+gulp.task('livereload', function() {
+  return gulp.src([
+    '*.js', 'lib/**', 'test/html/**'
+  ]).pipe(livereload());
+});
 
 gulp.task('jshint', function() {
   return gulp.src([
@@ -72,9 +80,10 @@ gulp.task('restartCount', function() {
 });
 
 gulp.task('watch', function() {
+  livereload.listen();
   gulp.watch([
     'lib/**', 'test/**'
-  ], ['restartCount', 'jshint', 'test', 'build']);
+  ], ['livereload', 'restartCount', 'jshint', 'test', 'build']);
 });
 
 gulp.task('default', function() {
