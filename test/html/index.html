@@ -9,14 +9,17 @@
   <h1>  Test anthParticle here. </h1>
   <canvas id="my"></canvas>
 
+  <script src="js/jquery.js"></script>
   <script src="../../build/anthParticle.js"></script>
   <script>
-      window.load = bootstrap;
+  $(function() {
 
       function bootstrap() {
         var myCanvas = document.getElementById('my');
         var myCtx = myCanvas.getContext('2d');
       }
+
+  });
   </script>
 
   <script src="http://localhost:35729/livereload.js?snipver=1"></script>

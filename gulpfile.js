@@ -25,8 +25,10 @@ gulp.task('livereload', function() {
 gulp.task('jshint', function() {
   return gulp.src([
       '*.js',
-      '{lib,test}/**/*.js'
+      '{lib,test}/**/*.{js,html}',
+      '!**/jquery.js'
     ])
+    .pipe(jshint.extract('auto'))
     .pipe(jshint())
     .pipe(jshint.reporter('default', { verbose: true }));
 });
