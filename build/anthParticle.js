@@ -26,7 +26,8 @@ function Particle(options) {
 
 Particle.prototype.loadXml = function(xmlStr) {
   return xmlParser.parse(xmlStr);
-};
+}
+
 
 },{"./xmlParser.js":3,"animation-frame":4}],3:[function(require,module,exports){
 

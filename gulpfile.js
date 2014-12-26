@@ -7,6 +7,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
+var notify = require('gulp-notify');
 
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
@@ -30,6 +31,18 @@ gulp.task('jshint', function() {
     ])
     .pipe(jshint.extract('auto'))
     .pipe(jshint())
+    .pipe(notify(function(file) {
+      if(file.jshint.success) {
+        return false;
+      }
+
+      var errors = file.jshint.results.map(function(data) {
+        if(data.error) {
+          return '(' + data.error.line + ':' + data.error.character + ') ' + data.error.reason;
+        }
+      }).join('\n');
+      return file.relative + " (" + file.jshint.results.length + ' errors)\n' + errors;
+    }))
     .pipe(jshint.reporter('default', { verbose: true }));
 });
 
@@ -38,6 +51,7 @@ gulp.task('test', function() {
     .pipe(mocha({
         timeout: 5000,
         reporter: 'spec',
+        growl: 'true',
         globals: {
           should: should
         }
@@ -90,5 +104,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', function() {
   // start
-  return runSequence('watch');
+  return runSequence('jshint');
 });
