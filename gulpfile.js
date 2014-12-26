@@ -47,7 +47,7 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('test', function() {
-  return gulp.src('test/test.js', { read: false })
+  return gulp.src('test/*.js', { read: false })
     .pipe(mocha({
         timeout: 5000,
         reporter: 'spec',
