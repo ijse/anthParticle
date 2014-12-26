@@ -17,10 +17,13 @@
     "gulp-jshint": "^1.9.0",
     "gulp-mocha": "^2.0.0",
     "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.1",
     "run-sequence": "^1.0.2",
     "should": "^4.4.1"
   },
   "dependencies": {
+    "animation-frame": "^0.1.7",
     "q": "^1.1.2",
     "sax": "^0.6.1"
   }
