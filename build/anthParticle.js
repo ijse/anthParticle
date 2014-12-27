@@ -2,7 +2,7 @@
 
 "use strict";
 
-var anthParticle = require('./lib/anthParticle.js');
+var anthParticle = require('./lib/');
 
 module.exports = anthParticle;
 
@@ -10,8 +10,21 @@ if(window) {
   window.anthParticle = anthParticle;
 }
 
-},{"./lib/anthParticle.js":2}],2:[function(require,module,exports){
+},{"./lib/":3}],2:[function(require,module,exports){
 
+"use strict";
+var util = require('util');
+module.exports = {
+  extend: util._extend,
+  isArray: util.isArray,
+  isDate: util.isDate,
+  isRegExp: util.isRegExp,
+  isNum: function(x) {
+    return typeof x === 'number';
+  }
+};
+
+},{"util":21}],3:[function(require,module,exports){
 "use strict";
 
 var xmlParser = require('./xmlParser.js');
@@ -74,21 +87,7 @@ Particle.prototype.draw = function() {
   console.log('-----');
 };
 
-},{"./helper.js":3,"./xmlParser.js":4,"animation-frame":5}],3:[function(require,module,exports){
-
-"use strict";
-var util = require('util');
-module.exports = {
-  extend: util._extend,
-  isArray: util.isArray,
-  isDate: util.isDate,
-  isRegExp: util.isRegExp,
-  isNum: function(x) {
-    return typeof x === 'number';
-  }
-};
-
-},{"util":21}],4:[function(require,module,exports){
+},{"./helper.js":2,"./xmlParser.js":4,"animation-frame":5}],4:[function(require,module,exports){
 
 "use strict";
 
@@ -3319,8 +3318,8 @@ function indexOf (xs, x) {
   return -1;
 }
 
-}).call(this,require("v229Ge"))
-},{"./index.js":13,"buffer":6,"events":9,"inherits":10,"process/browser.js":14,"string_decoder":19,"v229Ge":11}],17:[function(require,module,exports){
+}).call(this,require("IrXUsu"))
+},{"./index.js":13,"IrXUsu":11,"buffer":6,"events":9,"inherits":10,"process/browser.js":14,"string_decoder":19}],17:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4703,8 +4702,8 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("v229Ge"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":20,"inherits":10,"v229Ge":11}],22:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":20,"IrXUsu":11,"inherits":10}],22:[function(require,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -6644,8 +6643,8 @@ return Q;
 
 });
 
-}).call(this,require("v229Ge"))
-},{"v229Ge":11}],23:[function(require,module,exports){
+}).call(this,require("IrXUsu"))
+},{"IrXUsu":11}],23:[function(require,module,exports){
 (function (Buffer){
 // wrapper for non-node envs
 ;(function (sax) {

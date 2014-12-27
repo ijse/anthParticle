@@ -1,7 +1,7 @@
 
 "use strict";
 
-var anthParticle = require('./lib/anthParticle.js');
+var anthParticle = require('./lib/');
 
 module.exports = anthParticle;
 

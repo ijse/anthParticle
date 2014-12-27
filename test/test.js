@@ -1,11 +1,10 @@
-/*jshint -W030 */
 
 var fs = require('fs');
 var path = require('path');
 
 var testResConfigFile = path.join(__dirname, 'res/snow/config.xml');
 
-describe('Test anthParticle', function() {
+describe('Parse xml configs', function() {
   "use strict";
   var xmlParser = require('../lib/xmlParser.js');
   it('parse simple xml text', function(done) {

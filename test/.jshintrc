@@ -1,3 +1,4 @@
 {
-  "mocha": true
+  "mocha": true,
+  "expr": true
 }
