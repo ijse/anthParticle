@@ -27,7 +27,7 @@ describe('Utils test', function() {
     var o1 = { a: { b: 5 } };
     var o2 = { a: { b: 2, c: 9}, b: 9 };
 
-    var r = util.deepExtend(o1, o2);
+    var r = util.deepExtend({}, o1, o2);
     r.should.have.properties({
         a: {
             b: 2,
