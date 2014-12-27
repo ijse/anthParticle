@@ -12,6 +12,7 @@ var notify = require('gulp-notify');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var coverage = require('gulp-coverage');
 
 var livereload = require('gulp-livereload');
 
@@ -57,6 +58,17 @@ gulp.task('test', function() {
         }
     }))
     .on('error', gutil.log);
+});
+
+gulp.task('jsc', function() {
+  return gulp.src('test/*.js', { read: false })
+    .pipe(coverage.instrument({
+      pattern: [ 'index.js', 'lib/**' ],
+    }))
+    .pipe(mocha())
+    .pipe(coverage.report({
+      outFile: 'test/html/coverage.html'
+    }));
 });
 
 gulp.task('release', function() {
