@@ -10,6 +10,7 @@ if(window) {
   window.anthParticle = anthParticle;
 }
 
+
 },{"./lib/":2}],2:[function(require,module,exports){
 "use strict";
 
@@ -7466,6 +7467,7 @@ module.exports={
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-browserify": "^0.5.0",
+    "gulp-coverage": "^0.3.32",
     "gulp-jshint": "^1.9.0",
     "gulp-livereload": "^3.0.2",
     "gulp-mocha": "^2.0.0",

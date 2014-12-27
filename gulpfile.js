@@ -21,14 +21,15 @@ var restartCount = 0;
 gulp.task('livereload', function() {
   return gulp.src([
     '*.js', 'lib/**', 'test/html/**'
-  ]).pipe(livereload());
+  ], { read: false }).pipe(livereload());
 });
 
 gulp.task('jshint', function() {
   return gulp.src([
       '*.js',
       '{lib,test}/**/*.{js,html}',
-      '!**/jquery.js'
+      '!**/jquery.js',
+      '!test/html/coverage.html'
     ])
     .pipe(jshint.extract('auto'))
     .pipe(jshint())
@@ -72,20 +73,28 @@ gulp.task('jsc', function() {
 });
 
 gulp.task('release', function() {
-  // todo: browserify, uglify, copy, ...
-  gulp.src('index.js')
-    .pipe(browserify({
-      insertGlobals: false,
-      debug: false
-    }))
-    .pipe(rename('anthParticle.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./build/release'));
+  var ver = require('./package.json').version;
+
+  gulp.src('index.js', { read: false })
+  .pipe(browserify({
+    insertGlobals: false,
+    debug: false
+  })).pipe(rename('anthParticle-' + ver + '.js'))
+  .pipe(gulp.dest('./build/release'));
+
+  gulp.src('index.js', { read: false })
+  .pipe(browserify({
+    insertGlobals: false,
+    debug: false
+  })).pipe(rename('anthParticle-' + ver + '.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('./build/release'));
+
 });
 
 gulp.task('build', function() {
   // todo: browserify, uglify, copy, ...
-  gulp.src('index.js')
+  gulp.src('index.js', { read: false })
     .pipe(browserify({
       insertGlobals: false,
       debug: false
@@ -116,5 +125,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', function() {
   // start
-  return runSequence('jshint');
+  return runSequence('jshint', 'test', 'build');
 });

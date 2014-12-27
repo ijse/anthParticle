@@ -8,3 +8,4 @@ module.exports = anthParticle;
 if(window) {
   window.anthParticle = anthParticle;
 }
+
