@@ -7,7 +7,8 @@ describe('Utils test', function() {
   it('check integrality', function() {
     util.should.have.a.type('object');
     util.should.have.properties([
-        'extend', 'deepExtend', 'isArray', 'type'
+      'extend', 'deepExtend', 'isArray', 'type',
+      'getRandom'
       ]);
   });
 
@@ -17,8 +18,8 @@ describe('Utils test', function() {
 
     var r = util.extend({}, o1, o2);
     r.should.have.properties({
-        a: 4,
-        b: 5
+      a: 4,
+      b: 5
     });
 
   });
@@ -29,11 +30,11 @@ describe('Utils test', function() {
 
     var r = util.deepExtend({}, o1, o2);
     r.should.have.properties({
-        a: {
-            b: 2,
-            c: 9
-        },
-        b: 9
+      a: {
+        b: 2,
+        c: 9
+      },
+      b: 9
     });
 
   });
@@ -59,4 +60,26 @@ describe('Utils test', function() {
     util.type({}).should.be.eql('object');
   });
 
+  it('util.getRandom()', function() {
+    var x;
+    var n = 100;
+    while(n--) {
+      x = util.getRandom(1, 9);
+      x.should.be.within(1, 9);
+      (x%1).should.be.equal(0);
+    }
+  });
+
+  it('util.getRandomArbitry()', function() {
+    var x;
+    var n = 100;
+    while(n--) {
+      x = util.getRandomArbitry(1, 9);
+      x.should.be.within(1, 9);
+      (x%1).should.not.be.equal(0);
+    }
+
+  });
+
 });
+
