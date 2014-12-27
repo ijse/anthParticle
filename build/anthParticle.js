@@ -33,6 +33,10 @@ var helper = require('./helper.js');
 
 AnimationFrame.FRAME_RATE = 30;
 module.exports = Particle;
+
+//TODO: This will include the whole package.json file
+Particle.VERSION = require('../package.json').version;
+
 function Particle(options) {
   this.frameId = 0;
   this.animationFrame = new AnimationFrame(options.fps);
@@ -84,10 +88,11 @@ Particle.prototype.stop = function() {
 };
 
 Particle.prototype.draw = function() {
+  //TODO:
   console.log('-----');
 };
 
-},{"./helper.js":2,"./xmlParser.js":4,"animation-frame":5}],4:[function(require,module,exports){
+},{"../package.json":24,"./helper.js":2,"./xmlParser.js":4,"animation-frame":5}],4:[function(require,module,exports){
 
 "use strict";
 
@@ -8058,4 +8063,38 @@ if (!String.fromCodePoint) {
 })(typeof exports === "undefined" ? sax = {} : exports);
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":6,"stream":13,"string_decoder":19}]},{},[1])
+},{"buffer":6,"stream":13,"string_decoder":19}],24:[function(require,module,exports){
+module.exports={
+  "name": "anthParticle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cyParticle"
+  ],
+  "author": "ijse",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-browserify": "^0.5.0",
+    "gulp-jshint": "^1.9.0",
+    "gulp-livereload": "^3.0.2",
+    "gulp-mocha": "^2.0.0",
+    "gulp-notify": "^2.1.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.1",
+    "run-sequence": "^1.0.2",
+    "should": "^4.4.1"
+  },
+  "dependencies": {
+    "animation-frame": "^0.1.7",
+    "q": "^1.1.2",
+    "sax": "^0.6.1"
+  }
+}
+
+},{}]},{},[1])
