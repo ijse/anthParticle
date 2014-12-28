@@ -16,7 +16,7 @@ if(window) {
 
 var xmlParser = require('./xmlParser.js');
 var AnimationFrame = require('animation-frame');
-// var _ = require('lodash');
+var Model = require('./model.js');
 
 AnimationFrame.FRAME_RATE = 30;
 module.exports = Particle;
@@ -29,7 +29,11 @@ function Particle(options) {
   this.animationFrame = new AnimationFrame(options.fps);
 
   this._id = options.id || ('id_' + (+ new Date()));
+  this._canvas = options.canvas;
 
+  this.animPic = null;
+  this.animData = null;
+  this.modelList = [];
   this.status = {
     animating: false
   };
@@ -45,9 +49,25 @@ Particle.create = function(options) {
   return new Particle(options);
 };
 
-Particle.prototype.loadXml = function(xmlStr) {
-  this.animData = xmlParser.parse(xmlStr);
-  return this.animData;
+//TODO
+Particle.prototype.load = function(xmlStr, pic) {
+  var _this = this;
+  _this.animPic = pic;
+  return xmlParser
+    .parse(xmlStr)
+    .then(function(data) {
+      _this.animData = data;
+      return data;
+    })
+    .then(function(data) {
+      // init models
+      data.scene.model.forEach(function(modelData, idx) {
+        var model = new Model(modelData);
+        _this.modelList.push(model);
+      });
+      return _this;
+    });
+
 };
 
 Particle.prototype.start = function() {
@@ -59,9 +79,7 @@ Particle.prototype.start = function() {
   this.frameId = (function loop() {
     return AF.request(function() {
       fn();
-      if(status.animating) {
-        loop();
-      }
+      status.animating && loop();
     });
   }());
 };
@@ -76,7 +94,30 @@ Particle.prototype.draw = function() {
   console.log('-----');
 };
 
-},{"../package.json":21,"./xmlParser.js":3,"animation-frame":4}],3:[function(require,module,exports){
+},{"../package.json":22,"./model.js":3,"./xmlParser.js":4,"animation-frame":5}],3:[function(require,module,exports){
+
+"use strict";
+
+/**
+ *
+ */
+function Model(data) {
+  this.chanceRange = {
+    from: data['chance_range'].values[0],
+    to: data['chance_range'].values[1]
+  };
+
+  this.activeTime = {
+    min: data['active_time'].values[0],
+    max: data['active_time'].values[1]
+  };
+
+  this.srcLtwh = data['src_ltwh'];
+
+}
+module.exports = Model;
+
+},{}],4:[function(require,module,exports){
 
 "use strict";
 
@@ -131,7 +172,7 @@ exports.parse = function(xmlStr) {
   return deferred.promise;
 };
 
-},{"q":19,"sax":20}],4:[function(require,module,exports){
+},{"q":20,"sax":21}],5:[function(require,module,exports){
 /**
  * An even better animation frame.
  *
@@ -358,7 +399,7 @@ if (typeof exports == 'object' && typeof module == 'object') {
 
 }(window));
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1469,7 +1510,7 @@ function assert (test, message) {
   if (!test) throw new Error(message || 'Failed assertion')
 }
 
-},{"base64-js":6,"ieee754":7}],6:[function(require,module,exports){
+},{"base64-js":7,"ieee754":8}],7:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -1591,7 +1632,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -1677,7 +1718,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1980,7 +2021,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2005,7 +2046,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2070,7 +2111,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2144,7 +2185,7 @@ function onend() {
   });
 }
 
-},{"./readable.js":15,"./writable.js":17,"inherits":9,"process/browser.js":13}],12:[function(require,module,exports){
+},{"./readable.js":16,"./writable.js":18,"inherits":10,"process/browser.js":14}],13:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2273,7 +2314,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"./duplex.js":11,"./passthrough.js":14,"./readable.js":15,"./transform.js":16,"./writable.js":17,"events":8,"inherits":9}],13:[function(require,module,exports){
+},{"./duplex.js":12,"./passthrough.js":15,"./readable.js":16,"./transform.js":17,"./writable.js":18,"events":9,"inherits":10}],14:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2328,7 +2369,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2371,7 +2412,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./transform.js":16,"inherits":9}],15:[function(require,module,exports){
+},{"./transform.js":17,"inherits":10}],16:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -3308,7 +3349,7 @@ function indexOf (xs, x) {
 }
 
 }).call(this,require("IrXUsu"))
-},{"./index.js":12,"IrXUsu":10,"buffer":5,"events":8,"inherits":9,"process/browser.js":13,"string_decoder":18}],16:[function(require,module,exports){
+},{"./index.js":13,"IrXUsu":11,"buffer":6,"events":9,"inherits":10,"process/browser.js":14,"string_decoder":19}],17:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3514,7 +3555,7 @@ function done(stream, er) {
   return stream.push(null);
 }
 
-},{"./duplex.js":11,"inherits":9}],17:[function(require,module,exports){
+},{"./duplex.js":12,"inherits":10}],18:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3902,7 +3943,7 @@ function endWritable(stream, state, cb) {
   state.ended = true;
 }
 
-},{"./index.js":12,"buffer":5,"inherits":9,"process/browser.js":13}],18:[function(require,module,exports){
+},{"./index.js":13,"buffer":6,"inherits":10,"process/browser.js":14}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4095,7 +4136,7 @@ function base64DetectIncompleteChar(buffer) {
   return incomplete;
 }
 
-},{"buffer":5}],19:[function(require,module,exports){
+},{"buffer":6}],20:[function(require,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -6036,7 +6077,7 @@ return Q;
 });
 
 }).call(this,require("IrXUsu"))
-},{"IrXUsu":10}],20:[function(require,module,exports){
+},{"IrXUsu":11}],21:[function(require,module,exports){
 (function (Buffer){
 // wrapper for non-node envs
 ;(function (sax) {
@@ -7450,7 +7491,7 @@ if (!String.fromCodePoint) {
 })(typeof exports === "undefined" ? sax = {} : exports);
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":5,"stream":12,"string_decoder":18}],21:[function(require,module,exports){
+},{"buffer":6,"stream":13,"string_decoder":19}],22:[function(require,module,exports){
 module.exports={
   "name": "anthParticle",
   "version": "1.0.1",

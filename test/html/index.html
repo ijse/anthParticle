@@ -18,7 +18,8 @@
       var myCtx = myCanvas.getContext('2d');
 
       var particle = new anthParticle({
-        fps: 1
+        fps: 1,
+        canvas: myCanvas
       });
 
       // get xml
@@ -28,19 +29,25 @@
         dataType: 'text'
       }).success(function(data) {
 
-        // parse xml and output
-        particle
-          .loadXml(data)
-          .then(function(result) {
-            console.log("config.xml parse result: ", result);
-          });
+        var resImg = new Image();
+        resImg.onload = function() {
+          particle
+            .load(data, this)
+            .then(function(result) {
+              console.log("config.xml parse result: ", result);
+            })
+            .then(function() {
+              particle.start();
 
-        particle.start();
+              setTimeout(function() {
+                console.log('stop!');
+                particle.stop();
+              }, 5000);
 
-        setTimeout(function() {
-          console.log('stop!');
-          particle.stop();
-        }, 5000);
+            });
+        };
+        resImg.src = '../res/snow/_cyPic.png';
+
       });
       // todo: draw something with Particle
 
