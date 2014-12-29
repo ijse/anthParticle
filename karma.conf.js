@@ -1,7 +1,8 @@
 // Karma configuration
-// Generated on Sun Dec 28 2014 20:07:10 GMT+0800 (CST)
+// Generated on Mon Dec 29 2014 10:48:34 GMT+0800 (中国标准时间)
 
 module.exports = function(config) {
+  "use strict";
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,14 +11,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
-
-
-    // list of files / patterns to load in the browser
-    files: [
-      'test/*.js'
-    ],
-
+    frameworks: ['mocha', 'chai', 'browserify'],
 
     // list of files to exclude
     exclude: [
@@ -27,14 +21,39 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      // 'test/**/*.spec.js': [ 'browserify' ]
+      'test/test-*.js': ['browserify']
     },
 
+    browserify: {
+      debug: true,
+      // fullPath: true,
+      // noCommonDir: true,
+      // exposeAll: true,
+      insertGlobals: false,
+      transform: [ 'brfs' ]
+    },
+
+    mocha: {
+      timeout: 5000
+    },
+
+    // list of files / patterns to load in the browser
+    files: [
+      // "test/**/*.spec.js"
+      { pattern: 'lib/**', watched: true, included: false, served: false },
+      { pattern: 'index.js', watched: true, included: false, served: false },
+      // { pattern: 'test/test-*.js', watched: true, included: true, served: true }
+      'test/test-*.js'
+      // 'test/test-test.js'
+    ],
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['spec', 'growl'],
 
+    // plugins: ['karma-spec-reporter'],
 
     // web server port
     port: 9876,
@@ -47,7 +66,6 @@ module.exports = function(config) {
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
-
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,

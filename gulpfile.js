@@ -1,7 +1,5 @@
 "use strict";
 
-var should = require('should');
-
 var runSequence = require('run-sequence');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -53,12 +51,22 @@ gulp.task('test', function() {
     .pipe(mocha({
         timeout: 5000,
         reporter: 'spec',
-        growl: 'true',
-        globals: {
-          should: should
-        }
+        growl: 'true'
     }))
     .on('error', gutil.log);
+});
+
+var karma = require('gulp-karma');
+gulp.task('karma', function() {
+  return gulp.src('test/test-*.js', { read: false })
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'start'
+    }))
+    .on('error', function(err) {
+      // throw err;
+      console.log(err);
+    });
 });
 
 gulp.task('jsc', function() {
@@ -120,7 +128,7 @@ gulp.task('watch', function() {
   livereload.listen();
   gulp.watch([
     'lib/**', 'test/**'
-  ], ['livereload', 'restartCount', 'jshint', 'test', 'build']);
+  ], ['livereload', 'restartCount', 'jshint', 'build', 'karma']);
 });
 
 gulp.task('default', function() {

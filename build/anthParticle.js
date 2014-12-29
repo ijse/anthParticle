@@ -17,6 +17,7 @@ if(window) {
 var xmlParser = require('./xmlParser.js');
 var AnimationFrame = require('animation-frame');
 var Model = require('./model.js');
+var util = require('./util.js');
 
 AnimationFrame.FRAME_RATE = 30;
 module.exports = Particle;
@@ -44,6 +45,8 @@ function Particle(options) {
 Particle._stats = {
   create: 0
 };
+
+Particle.util = util;
 
 Particle.create = function(options) {
   return new Particle(options);
@@ -94,7 +97,7 @@ Particle.prototype.draw = function() {
   console.log('-----');
 };
 
-},{"../package.json":22,"./model.js":3,"./xmlParser.js":4,"animation-frame":5}],3:[function(require,module,exports){
+},{"../package.json":23,"./model.js":3,"./util.js":4,"./xmlParser.js":5,"animation-frame":6}],3:[function(require,module,exports){
 
 "use strict";
 
@@ -118,6 +121,66 @@ function Model(data) {
 module.exports = Model;
 
 },{}],4:[function(require,module,exports){
+
+"use strict";
+
+var util = module.exports = {};
+
+util.extend = function(out) {
+  out = out || {};
+
+  for (var i = 1; i < arguments.length; i++) {
+    if (!arguments[i])
+      continue;
+
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key))
+        out[key] = arguments[i][key];
+    }
+  }
+
+  return out;
+};
+
+util.deepExtend = function(out) {
+  out = out || {};
+
+  for (var i = 1; i < arguments.length; i++) {
+    var obj = arguments[i];
+
+    if (!obj)
+      continue;
+
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof obj[key] === 'object')
+          util.deepExtend(out[key]||(out[key]={}), obj[key]);
+        else
+          out[key] = obj[key];
+      }
+    }
+  }
+
+  return out;
+};
+
+util.isArray = Array.isArray || function(arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+util.type = function(obj) {
+  return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, "$1").toLowerCase();
+};
+
+util.getRandom = function(min, max) {
+  return Math.floor(Math.random()*(max-min)) + min;
+};
+
+util.getRandomArbitry = function(min, max) {
+  return Math.random() * (max-min) + min;
+};
+
+},{}],5:[function(require,module,exports){
 
 "use strict";
 
@@ -172,7 +235,7 @@ exports.parse = function(xmlStr) {
   return deferred.promise;
 };
 
-},{"q":20,"sax":21}],5:[function(require,module,exports){
+},{"q":21,"sax":22}],6:[function(require,module,exports){
 /**
  * An even better animation frame.
  *
@@ -399,7 +462,7 @@ if (typeof exports == 'object' && typeof module == 'object') {
 
 }(window));
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1510,7 +1573,7 @@ function assert (test, message) {
   if (!test) throw new Error(message || 'Failed assertion')
 }
 
-},{"base64-js":7,"ieee754":8}],7:[function(require,module,exports){
+},{"base64-js":8,"ieee754":9}],8:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -1632,7 +1695,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -1718,7 +1781,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2021,7 +2084,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2046,7 +2109,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2111,7 +2174,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2185,7 +2248,7 @@ function onend() {
   });
 }
 
-},{"./readable.js":16,"./writable.js":18,"inherits":10,"process/browser.js":14}],13:[function(require,module,exports){
+},{"./readable.js":17,"./writable.js":19,"inherits":11,"process/browser.js":15}],14:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2314,7 +2377,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"./duplex.js":12,"./passthrough.js":15,"./readable.js":16,"./transform.js":17,"./writable.js":18,"events":9,"inherits":10}],14:[function(require,module,exports){
+},{"./duplex.js":13,"./passthrough.js":16,"./readable.js":17,"./transform.js":18,"./writable.js":19,"events":10,"inherits":11}],15:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2369,7 +2432,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2412,7 +2475,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./transform.js":17,"inherits":10}],16:[function(require,module,exports){
+},{"./transform.js":18,"inherits":11}],17:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -3348,8 +3411,8 @@ function indexOf (xs, x) {
   return -1;
 }
 
-}).call(this,require("IrXUsu"))
-},{"./index.js":13,"IrXUsu":11,"buffer":6,"events":9,"inherits":10,"process/browser.js":14,"string_decoder":19}],17:[function(require,module,exports){
+}).call(this,require("v229Ge"))
+},{"./index.js":14,"buffer":7,"events":10,"inherits":11,"process/browser.js":15,"string_decoder":20,"v229Ge":12}],18:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3555,7 +3618,7 @@ function done(stream, er) {
   return stream.push(null);
 }
 
-},{"./duplex.js":12,"inherits":10}],18:[function(require,module,exports){
+},{"./duplex.js":13,"inherits":11}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3943,7 +4006,7 @@ function endWritable(stream, state, cb) {
   state.ended = true;
 }
 
-},{"./index.js":13,"buffer":6,"inherits":10,"process/browser.js":14}],19:[function(require,module,exports){
+},{"./index.js":14,"buffer":7,"inherits":11,"process/browser.js":15}],20:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4136,7 +4199,7 @@ function base64DetectIncompleteChar(buffer) {
   return incomplete;
 }
 
-},{"buffer":6}],20:[function(require,module,exports){
+},{"buffer":7}],21:[function(require,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -6076,8 +6139,8 @@ return Q;
 
 });
 
-}).call(this,require("IrXUsu"))
-},{"IrXUsu":11}],21:[function(require,module,exports){
+}).call(this,require("v229Ge"))
+},{"v229Ge":12}],22:[function(require,module,exports){
 (function (Buffer){
 // wrapper for non-node envs
 ;(function (sax) {
@@ -7491,7 +7554,7 @@ if (!String.fromCodePoint) {
 })(typeof exports === "undefined" ? sax = {} : exports);
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":6,"stream":13,"string_decoder":19}],22:[function(require,module,exports){
+},{"buffer":7,"stream":14,"string_decoder":20}],23:[function(require,module,exports){
 module.exports={
   "name": "anthParticle",
   "version": "1.0.1",
@@ -7506,18 +7569,31 @@ module.exports={
   "author": "ijse",
   "license": "ISC",
   "devDependencies": {
+    "brfs": "^1.2.0",
+    "browserify": "^8.0.2",
+    "chai": "^1.10.0",
     "gulp": "^3.8.10",
     "gulp-browserify": "^0.5.0",
     "gulp-coverage": "^0.3.32",
     "gulp-jshint": "^1.9.0",
+    "gulp-karma": "0.0.4",
     "gulp-livereload": "^3.0.2",
     "gulp-mocha": "^2.0.0",
     "gulp-notify": "^2.1.0",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^1.0.2",
     "gulp-util": "^3.0.1",
-    "run-sequence": "^1.0.2",
-    "should": "^4.4.1"
+    "karma": "^0.12.28",
+    "karma-browserify": "^1.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-growl-reporter": "^0.1.1",
+    "karma-mocha": "^0.1.10",
+    "karma-requirejs": "^0.2.2",
+    "karma-spec-reporter": "0.0.16",
+    "mocha": "^2.1.0",
+    "requirejs": "^2.1.15",
+    "run-sequence": "^1.0.2"
   },
   "dependencies": {
     "animation-frame": "^0.1.7",
