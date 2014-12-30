@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default', { verbose: true }));
 });
 
-gulp.task('test', function() {
+gulp.task('mocha', function() {
   return gulp.src('test/*.js', { read: false })
     .pipe(mocha({
         timeout: 5000,
@@ -61,7 +61,7 @@ gulp.task('karma', function() {
   return gulp.src('test/test-*.js', { read: false })
     .pipe(karma({
       configFile: 'karma.conf.js',
-      action: 'start'
+      action: 'run'
     }))
     .on('error', function(err) {
       // throw err;
@@ -80,7 +80,7 @@ gulp.task('jsc', function() {
     }));
 });
 
-gulp.task('release', function() {
+gulp.task('package', function() {
   var ver = require('./package.json').version;
 
   gulp.src('index.js', { read: false })
@@ -133,5 +133,9 @@ gulp.task('watch', function() {
 
 gulp.task('default', function() {
   // start
-  return runSequence('jshint', 'test', 'build');
+  return runSequence('jshint', 'karma', 'build');
+});
+
+gulp.task('release', function() {
+  return runSequence('jshint', 'karma', 'build', 'package');
 });

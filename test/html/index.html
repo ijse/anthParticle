@@ -11,48 +11,7 @@
 
   <script src="js/jquery.js"></script>
   <script src="../../build/anthParticle.js"></script>
-  <script>
-  $(function() {
-
-      var myCanvas = document.getElementById('my');
-      var myCtx = myCanvas.getContext('2d');
-
-      var particle = new anthParticle({
-        fps: 1,
-        canvas: myCanvas
-      });
-
-      // get xml
-      $.ajax({
-        type: 'GET',
-        url: '../res/snow/config.xml',
-        dataType: 'text'
-      }).success(function(data) {
-
-        var resImg = new Image();
-        resImg.onload = function() {
-          particle
-            .load(data, this)
-            .then(function(result) {
-              console.log("config.xml parse result: ", result);
-            })
-            .then(function() {
-              particle.start();
-
-              setTimeout(function() {
-                console.log('stop!');
-                particle.stop();
-              }, 5000);
-
-            });
-        };
-        resImg.src = '../res/snow/_cyPic.png';
-
-      });
-      // todo: draw something with Particle
-
-  });
-  </script>
+  <script src="js/main.js"></script>
 
   <script src="http://localhost:35729/livereload.js?snipver=1"></script>
 </body>
