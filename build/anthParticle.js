@@ -63,7 +63,7 @@ Particle.prototype.initModel = function(models) {
   this.modelList = [];
   for(var i=0; i<models.length; i++) {
     var modelData = models[i];
-    var model = new Model(modelData);
+    var model = new Model(modelData, this.animPic);
 
     this.modelList.push(model);
   }
@@ -119,7 +119,7 @@ Particle.prototype.draw = function() {
 /**
  *
  */
-function Model(data) {
+function Model(data, animPic) {
   this.chanceRange = {
     from: data['chance_range'].values[0],
     to: data['chance_range'].values[1]
@@ -131,6 +131,10 @@ function Model(data) {
   };
 
   this.srcLtwh = data['src_ltwh'];
+
+}
+
+function initImg() {
 
 }
 module.exports = Model;
@@ -193,6 +197,22 @@ util.getRandom = function(min, max) {
 
 util.getRandomArbitry = function(min, max) {
   return Math.random() * (max-min) + min;
+};
+
+util.createCanvas = function(w, h) {
+  var canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+
+  return canvas;
+};
+
+util.clipImage = function(simg, sx, sy, dw, dh) {
+  var canvas = util.createCanvas(dw, dh);
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(simg, sx, sy, dw, dh, 0, 0, dw, dh);
+
+  return canvas.toDataURL();
 };
 
 },{}],5:[function(require,module,exports){
@@ -7591,7 +7611,6 @@ module.exports={
     "gulp-browserify": "^0.5.0",
     "gulp-coverage": "^0.3.32",
     "gulp-jshint": "^1.9.0",
-    "gulp-karma": "0.0.4",
     "gulp-livereload": "^3.0.2",
     "gulp-mocha": "^2.0.0",
     "gulp-notify": "^2.1.0",

@@ -4,6 +4,9 @@ var should = chai.should();
 var assert = chai.assert;
 var expect = chai.expect;
 
+var fs = require('fs');
+var path = require('path');
+
 describe('Utils test', function() {
   "use strict";
   var util =  require('../lib/util.js');
@@ -89,6 +92,21 @@ describe('Utils test', function() {
       (x%1).should.not.be.equal(0);
     }
 
+  });
+
+  it('util.createCanvas()', function() {
+    var cvs = util.createCanvas(100, 100);
+    cvs.should.be.a('object');
+    cvs.width.should.be.equal(100);
+    cvs.height.should.be.equal(100);
+  });
+
+  it('util.clipImage()', function(done) {
+    var imgFile = fs.readFileSync('test/res/snow/cypic.png');
+    var img = new Image();
+    img.src = 'data:image/png;base64,' + imgFile.toString('base64');
+    var clipImg = util.clipImage(img, 149, 0, 50, 43);
+    done();
   });
 
 });
