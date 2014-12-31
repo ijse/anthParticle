@@ -56,17 +56,24 @@ gulp.task('mocha', function() {
     .on('error', gutil.log);
 });
 
-var karma = require('gulp-karma');
+var karma = require('karma').server;
 gulp.task('karma', function() {
-  return gulp.src('test/test-*.js', { read: false })
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run'
-    }))
-    .on('error', function(err) {
-      // throw err;
-      console.log(err);
-    });
+
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    autoWatch: false,
+    singleRun: true
+  });
+
+  // return gulp.src('test/test-*.js', { read: false })
+  //   .pipe(karma({
+  //     configFile: 'karma.conf.js',
+  //     action: 'run'
+  //   }))
+  //   .on('error', function(err) {
+  //     // throw err;
+  //     console.log(err);
+  //   });
 });
 
 gulp.task('jsc', function() {
