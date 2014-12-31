@@ -14,19 +14,42 @@ describe('Utils test', function() {
   it('check integrality', function() {
     util.should.have.a('object');
     expect(util).to.contain.keys([
-      'extend', 'deepExtend', 'isArray', 'type', 'getRandom'
+      'extend', 'merge', 'deepMerge', 'isArray', 'type', 'getRandom',
+      'getRandomArbitry', 'createCanvas', 'clipImageToCanvas'
     ]);
-    // util.should.have.properties([
-    //   'extend', 'deepExtend', 'isArray', 'type',
-    //   'getRandom'
-    //   ]);
   });
 
   it('util.extend()', function() {
+    function A(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    A.prototype.setAge = function(n) {
+      this.age = n;
+    };
+
+    function B(name, age, height) {
+      B.superClass.constructor.call(this, name, age);
+      this.name = name;
+      this.height = height;
+    }
+
+    var O = util.extend(B, A);
+    var q = new O('a', 10, 100);
+    expect(q.setAge).to.be.a('function');
+    expect(q.age).to.be.equal(10);
+    expect(q.name).to.be.equal('a');
+
+    expect(q instanceof B).to.be.ok;
+    expect(q instanceof A).to.be.ok;
+
+  });
+
+  it('util.merge()', function() {
     var o1 = { a: 4 };
     var o2 = { b: 5 };
 
-    var r = util.extend({}, o1, o2);
+    var r = util.merge({}, o1, o2);
     assert.propertyVal(r, 'a', 4);
     assert.propertyVal(r, 'b', 5);
     // r.should.have.properties({
@@ -35,11 +58,11 @@ describe('Utils test', function() {
     // });
   });
 
-  it('util.deepExtend()', function() {
+  it('util.deepMerge()', function() {
     var o1 = { a: { b: 5 } };
     var o2 = { a: { b: 2, c: 9}, b: 9 };
 
-    var r = util.deepExtend({}, o1, o2);
+    var r = util.deepMerge({}, o1, o2);
     assert.deepPropertyVal(r, 'a.b', 2);
     assert.deepPropertyVal(r, 'a.c', 9);
     assert.deepPropertyVal(r, 'b', 9);
