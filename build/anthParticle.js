@@ -21,12 +21,12 @@ var util = require('./util.js');
 var Q = require('q');
 
 AnimationFrame.FRAME_RATE = 30;
-module.exports = Particle;
+module.exports = AnthParticle;
 
 //TODO: This will include the whole package.json file
-Particle.VERSION = require('../package.json').version;
+AnthParticle.VERSION = require('../package.json').version;
 
-function Particle(options) {
+function AnthParticle(options) {
   this.frameId = 0;
   options = options || {};
   this.animationFrame = new AnimationFrame(options.fps);
@@ -37,28 +37,26 @@ function Particle(options) {
   this.animPic = null;
   this.animData = null;
   this.modelList = [];
+  this.particles = [];
+
   this.status = {
     animating: false
   };
 
-  Particle._stats.create++;
+  AnthParticle._stats.create++;
 }
 
-Particle._stats = {
+AnthParticle._stats = {
   create: 0
 };
 
-Particle.util = util;
-
-Particle.create = function(options) {
-  return new Particle(options);
-};
+AnthParticle.util = util;
 
 /**
  * Create all Models
  * @param  {array} models list
  */
-Particle.prototype.initModel = function(models) {
+AnthParticle.prototype.initModel = function(models) {
   var def = Q.defer();
   var _this = this;
   _this.modelList = [];
@@ -76,7 +74,7 @@ Particle.prototype.initModel = function(models) {
 };
 
 //TODO
-Particle.prototype.load = function(xmlStr, pic) {
+AnthParticle.prototype.load = function(xmlStr, pic) {
   var _this = this;
   _this.animPic = pic;
   return xmlParser
@@ -93,7 +91,7 @@ Particle.prototype.load = function(xmlStr, pic) {
 
 };
 
-Particle.prototype.start = function() {
+AnthParticle.prototype.start = function() {
   var _this = this;
   var AF = _this.animationFrame;
   var fn = _this.tick;
@@ -108,12 +106,12 @@ Particle.prototype.start = function() {
   }).call(_this);
 };
 
-Particle.prototype.stop = function() {
+AnthParticle.prototype.stop = function() {
   this.animationFrame.cancel(this.frameId);
   this.status.animating = false;
 };
 
-Particle.prototype.tick = function() {
+AnthParticle.prototype.tick = function() {
   //TODO:
   var _this = this;
   var cvs = this._canvas;
@@ -121,7 +119,7 @@ Particle.prototype.tick = function() {
 
   var modelNo = util.getRandom(0, this.modelList.length);
   var mode = this.modelList[modelNo];
-  if(!mode) return
+  if(!mode) return ;
 
   var img = mode.image;
   var x = util.getRandom(0, cvs.width - img.width);
