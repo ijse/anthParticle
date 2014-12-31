@@ -18,6 +18,7 @@ var xmlParser = require('./xmlParser.js');
 var AnimationFrame = require('animation-frame');
 var Model = require('./model.js');
 var util = require('./util.js');
+var Q = require('q');
 
 AnimationFrame.FRAME_RATE = 30;
 module.exports = Particle;
@@ -27,6 +28,7 @@ Particle.VERSION = require('../package.json').version;
 
 function Particle(options) {
   this.frameId = 0;
+  options = options || {};
   this.animationFrame = new AnimationFrame(options.fps);
 
   this._id = options.id || ('id_' + (+ new Date()));
@@ -52,6 +54,23 @@ Particle.create = function(options) {
   return new Particle(options);
 };
 
+/**
+ * Create all Models
+ * @param  {array} models list
+ */
+Particle.prototype.initModel = function(models) {
+  var def = Q.defer();
+  this.modelList = [];
+  for(var i=0; i<models.length; i++) {
+    var modelData = models[i];
+    var model = new Model(modelData);
+
+    this.modelList.push(model);
+  }
+  def.resolve(this);
+  return def.promise;
+};
+
 //TODO
 Particle.prototype.load = function(xmlStr, pic) {
   var _this = this;
@@ -64,11 +83,7 @@ Particle.prototype.load = function(xmlStr, pic) {
     })
     .then(function(data) {
       // init models
-      data.scene.model.forEach(function(modelData, idx) {
-        var model = new Model(modelData);
-        _this.modelList.push(model);
-      });
-      return _this;
+      return _this.initModel(data.scene.model);
     });
 
 };
@@ -97,7 +112,7 @@ Particle.prototype.draw = function() {
   console.log('-----');
 };
 
-},{"../package.json":23,"./model.js":3,"./util.js":4,"./xmlParser.js":5,"animation-frame":6}],3:[function(require,module,exports){
+},{"../package.json":23,"./model.js":3,"./util.js":4,"./xmlParser.js":5,"animation-frame":6,"q":21}],3:[function(require,module,exports){
 
 "use strict";
 
