@@ -1,5 +1,6 @@
 {
   "node": true,
+  "browser": true,
   "bitwise": true,
   "immed": true,
   "newcap": true,
