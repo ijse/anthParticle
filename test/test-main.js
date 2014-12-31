@@ -17,11 +17,12 @@ describe('Test main', function(){
 
     var fps = 10;
     var ins = new anthParticle({
-      fps: fps
+      fps: fps,
+      canvas: document.createElement('canvas')
     });
     var counter = 0;
     // override draw func
-    ins.draw = function() {
+    ins.tick = function() {
       counter ++;
     };
 
@@ -33,7 +34,7 @@ describe('Test main', function(){
       // expect(counter).to.within(fps-5, fps+5);
       // console.log(counter);
       done();
-    }, 1000);
+    }, 1200);
   });
 
 });

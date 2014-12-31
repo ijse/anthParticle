@@ -57,13 +57,12 @@ gulp.task('mocha', function() {
 });
 
 var karma = require('karma').server;
-gulp.task('karma', function() {
+gulp.task('karmaWatch', function(done) {
 
   karma.start({
     configFile: __dirname + '/karma.conf.js',
-    autoWatch: false,
     singleRun: true
-  });
+  }, done);
 
   // return gulp.src('test/test-*.js', { read: false })
   //   .pipe(karma({
@@ -74,6 +73,13 @@ gulp.task('karma', function() {
   //     // throw err;
   //     console.log(err);
   //   });
+});
+
+gulp.task('karma', function() {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  });
 });
 
 gulp.task('jsc', function() {
@@ -135,7 +141,7 @@ gulp.task('watch', function() {
   livereload.listen();
   gulp.watch([
     'lib/**', 'test/**'
-  ], ['livereload', 'restartCount', 'jshint', 'build', 'karma']);
+  ], ['livereload', 'restartCount', 'jshint', 'build', 'karmaWatch']);
 });
 
 gulp.task('default', function() {

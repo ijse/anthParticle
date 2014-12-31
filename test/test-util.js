@@ -101,11 +101,11 @@ describe('Utils test', function() {
     cvs.height.should.be.equal(100);
   });
 
-  it('util.clipImage()', function(done) {
+  it('util.clipImageToCanvas()', function(done) {
     var imgFile = fs.readFileSync('test/res/snow/cypic.png');
     var img = new Image();
     img.src = 'data:image/png;base64,' + imgFile.toString('base64');
-    var clipImg = util.clipImage(img, 149, 0, 50, 43);
+    var clipImg = util.clipImageToCanvas(img, 149, 0, 50, 43);
     done();
   });
 

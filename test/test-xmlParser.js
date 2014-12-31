@@ -11,6 +11,7 @@ var testResConfigFile = path.join(__dirname, 'res/snow/config.xml');
 
 describe('Parse xml configs', function() {
   "use strict";
+  this.timeout(5000);
 
   var xmlParser = require('../lib/xmlParser.js');
   it('parse simple xml text', function(done) {
@@ -43,10 +44,12 @@ describe('Parse xml configs', function() {
         // obj.scene.should.have.properties([
         //     'pic_name', 'width_height', 'src_scale', 'max', 'model'
         // ]);
-        obj.scene.model.should.be.a('array');
+        //
+        // if there is only one mode tag, it is an object.
+        // obj.scene.model.should.be.a('array');
         // obj.scene.model.should.have.a.lengthOf(6);
 
-        var mode = obj.scene.model[0];
+        var mode = obj.scene.model[0] || obj.scene.model;
         mode.should.be.a('object');
 
         expect(mode).to.have.keys([
