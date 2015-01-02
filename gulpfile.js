@@ -13,15 +13,7 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var coverage = require('gulp-coverage');
 
-var livereload = require('gulp-livereload');
-
 var restartCount = 0;
-
-gulp.task('livereload', function() {
-  return gulp.src([
-    '*.js', 'lib/**', 'test/html/**'
-  ], { read: false }).pipe(livereload());
-});
 
 gulp.task('connect', function() {
   connect.server({
@@ -120,13 +112,14 @@ gulp.task('package', function() {
 
 gulp.task('build', function() {
   // todo: browserify, uglify, copy, ...
-  gulp.src('index.js', { read: false })
+  return gulp.src('index.js', { read: false })
     .pipe(browserify({
       insertGlobals: false,
       debug: false
     }))
     .pipe(rename('anthParticle.js'))
-    .pipe(gulp.dest('./build/'));
+    .pipe(gulp.dest('./build/'))
+    .pipe(connect.reload());
 });
 
 
@@ -142,12 +135,17 @@ gulp.task('restartCount', function() {
 
 });
 
+gulp.task('reloadServer', function() {
+  return gulp.src([
+    'build/**', 'test/html/**'
+  ]).pipe(connect.reload());
+});
+
 gulp.task('watch', function() {
-  livereload.listen();
   runSequence('connect');
   gulp.watch([
     'lib/**', 'test/**'
-  ], ['livereload', 'restartCount', 'jshint', 'build', 'karmaWatch']);
+  ], ['reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch']);
 });
 
 gulp.task('default', function() {
