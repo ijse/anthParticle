@@ -6,6 +6,7 @@ var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var notify = require('gulp-notify');
+var connect = require('gulp-connect');
 
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
@@ -20,6 +21,14 @@ gulp.task('livereload', function() {
   return gulp.src([
     '*.js', 'lib/**', 'test/html/**'
   ], { read: false }).pipe(livereload());
+});
+
+gulp.task('connect', function() {
+  connect.server({
+    port: 8088,
+    root: '.',
+    livereload: true
+  });
 });
 
 gulp.task('jshint', function() {
@@ -56,30 +65,26 @@ gulp.task('mocha', function() {
     .on('error', gutil.log);
 });
 
-var karma = require('karma').server;
+var karma = require('gulp-karma');
 gulp.task('karmaWatch', function(done) {
 
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
-
-  // return gulp.src('test/test-*.js', { read: false })
-  //   .pipe(karma({
-  //     configFile: 'karma.conf.js',
-  //     action: 'run'
-  //   }))
-  //   .on('error', function(err) {
-  //     // throw err;
-  //     console.log(err);
-  //   });
+  return gulp.src('test/test-*.js', { read: false })
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // throw err;
+      console.log(err);
+    });
 });
 
 gulp.task('karma', function() {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  });
+  return gulp.src('test/test-*.js', { read: false })
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }));
 });
 
 gulp.task('jsc', function() {
@@ -139,13 +144,14 @@ gulp.task('restartCount', function() {
 
 gulp.task('watch', function() {
   livereload.listen();
+  runSequence('connect');
   gulp.watch([
     'lib/**', 'test/**'
   ], ['livereload', 'restartCount', 'jshint', 'build', 'karmaWatch']);
 });
 
 gulp.task('default', function() {
-  // start
+  // start, for git pre-commit hook
   return runSequence('jshint', 'karma', 'build');
 });
 

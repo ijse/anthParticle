@@ -38,20 +38,23 @@ module.exports = function(config) {
       timeout: 5000
     },
 
+    usePolling: true,
+
     // list of files / patterns to load in the browser
     files: [
       // "test/**/*.spec.js"
+      /*
       { pattern: 'lib/**', watched: true, included: false, served: false },
       { pattern: 'index.js', watched: true, included: false, served: false },
-      // { pattern: 'test/test-*.js', watched: true, included: true, served: true }
+      { pattern: 'test/test-*.js', watched: true, included: true, served: true }
+      */
       'test/test-*.js'
-      // 'test/test-test.js'
     ],
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec', 'growl'],
+    reporters: ['spec', /*'growl'*/],
 
     // plugins: ['karma-spec-reporter'],
 
