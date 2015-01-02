@@ -6,7 +6,7 @@ $(function() {
   var myCtx = myCanvas.getContext('2d');
 
   var particle = new anthParticle({
-    fps: 60,
+    fps: 5,
     canvas: myCanvas
   });
 
@@ -36,7 +36,8 @@ $(function() {
         }, 50000);
 
       }).fail(function(e) {
-        console.log(e);
+        // console.log(e);
+        throw e;
       });
     };
 

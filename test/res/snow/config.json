@@ -1,0 +1,412 @@
+{
+    "scene": {
+        "pic_name": {
+            "values": [
+                "particle/snow/_cyPic"
+            ]
+        },
+        "width_height": {
+            "values": [
+                "720",
+                "1280"
+            ]
+        },
+        "src_scale": {
+            "values": [
+                "1.0",
+                "1.0"
+            ]
+        },
+        "max": {
+            "values": [
+                "23"
+            ]
+        },
+        "model": [
+            {
+                "chance_range": {
+                    "values": [
+                        "0",
+                        ".4"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "4000",
+                        "7000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "149",
+                        "0",
+                        "50",
+                        "43"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "28",
+                        "28"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        ".8",
+                        "1",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            },
+            {
+                "chance_range": {
+                    "values": [
+                        ".4",
+                        ".5"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "4000",
+                        "7000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "0",
+                        "0",
+                        "56",
+                        "56"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "28",
+                        "28"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        ".8",
+                        "1",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            },
+            {
+                "chance_range": {
+                    "values": [
+                        ".5",
+                        ".7"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "4000",
+                        "7000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "58",
+                        "0",
+                        "24",
+                        "24"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "12",
+                        "12"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        "1",
+                        "1.2",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            },
+            {
+                "chance_range": {
+                    "values": [
+                        ".7",
+                        ".8"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "4000",
+                        "6000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "84",
+                        "0",
+                        "24",
+                        "24"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "12",
+                        "12"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        "1",
+                        "1.2",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            },
+            {
+                "chance_range": {
+                    "values": [
+                        ".8",
+                        ".9"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "3000",
+                        "5000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "110",
+                        "0",
+                        "20",
+                        "20"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "10",
+                        "10"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        "1",
+                        "1.2",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            },
+            {
+                "chance_range": {
+                    "values": [
+                        ".9",
+                        "1"
+                    ]
+                },
+                "active_time": {
+                    "values": [
+                        "3000",
+                        "5000"
+                    ]
+                },
+                "src_ltwh": {
+                    "values": [
+                        "132",
+                        "0",
+                        "24",
+                        "24"
+                    ]
+                },
+                "move_from_rect": {
+                    "values": [
+                        "0",
+                        "-10",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "move_to_rect": {
+                    "values": [
+                        "0",
+                        "1280",
+                        "match_parent",
+                        "10"
+                    ]
+                },
+                "rotate": {
+                    "values": [
+                        "0",
+                        "100",
+                        "500",
+                        "600",
+                        "12",
+                        "12"
+                    ]
+                },
+                "alpha": {
+                    "values": [
+                        "220",
+                        "255",
+                        ".1",
+                        ".9"
+                    ]
+                },
+                "scale": {
+                    "values": [
+                        "1",
+                        "1.2",
+                        "0",
+                        "0.2"
+                    ]
+                }
+            }
+        ]
+    }
+}
