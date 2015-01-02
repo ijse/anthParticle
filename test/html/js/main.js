@@ -18,7 +18,7 @@ $(function() {
   }).success(function(data) {
     // get picture
     var resImg = new Image();
-    resImg.src = '/anthParticle/test/res/snow/cypic.png?' + (+new Date());
+    resImg.src = '../res/snow/cypic.png?' + (+new Date());
     resImg.onload = function() {
 
       // create particle
@@ -42,5 +42,6 @@ $(function() {
 
   });
   // todo: draw something with Particle
+
 
 });

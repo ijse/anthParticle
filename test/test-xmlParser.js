@@ -49,6 +49,7 @@ describe('Parse xml configs', function() {
         // obj.scene.model.should.be.a('array');
         // obj.scene.model.should.have.a.lengthOf(6);
 
+        // if there is only one model, it isnt an array.
         var mode = obj.scene.model[0] || obj.scene.model;
         mode.should.be.a('object');
 
