@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "release": "./node_modules/.bin/gulp release",
+    "test": "./node_modules/.bin/gulp karma"
   },
   "keywords": [
     "cyParticle"
