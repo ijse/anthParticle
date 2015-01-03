@@ -97,22 +97,28 @@ describe('Utils test', function() {
   });
 
   it('util.getRandom()', function() {
-    var x;
+    var x, x2;
     var n = 100;
     while(n--) {
       x = util.getRandom(1, 9);
+      x2 = util.getRandom('1', '9');
       x.should.be.within(1, 9);
+      x2.should.be.within(1, 9);
       (x%1).should.be.equal(0);
+      (x2%1).should.be.equal(0);
     }
   });
 
   it('util.getRandomArbitry()', function() {
-    var x;
+    var x, x2;
     var n = 100;
     while(n--) {
       x = util.getRandomArbitry(1, 9);
+      x2 = util.getRandomArbitry('1', '9');
       x.should.be.within(1, 9);
+      x2.should.be.within(1, 9);
       (x%1).should.not.be.equal(0);
+      (x2%1).should.not.be.equal(0);
     }
 
   });
