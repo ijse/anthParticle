@@ -1,5 +1,9 @@
 $(function() {
 
+  if(typeof debug !== 'undefined') {
+    debug.enable('ap:*');
+  }
+
   var myCanvas = document.getElementById('my');
   myCanvas.width = 800;
   myCanvas.height = 600;

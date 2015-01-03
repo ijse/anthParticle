@@ -27,7 +27,7 @@ gulp.task('jshint', function() {
   return gulp.src([
       '*.js',
       '{lib,test}/**/*.{js,html}',
-      '!**/jquery.js',
+      '!test/html/lib/**',
       '!test/html/coverage.html'
     ])
     .pipe(jshint.extract('auto'))

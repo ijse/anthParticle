@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "animation-frame": "^0.1.7",
+    "debug": "^2.1.1",
     "q": "^1.1.2",
     "sax": "^0.6.1"
   }
