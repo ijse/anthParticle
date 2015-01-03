@@ -24,9 +24,6 @@ $(function() {
       // create particle
       particle
       .load(data, this)
-      .then(function(result) {
-        console.log("config.xml parse result: ", result);
-      })
       .then(function() {
         particle.start();
 
