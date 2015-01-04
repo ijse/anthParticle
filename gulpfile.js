@@ -18,7 +18,6 @@ var restartCount = 0;
 gulp.task('connect', function() {
   connect.server({
     port: 8088,
-    root: '.',
     livereload: true
   });
 });
