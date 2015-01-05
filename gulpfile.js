@@ -144,7 +144,9 @@ gulp.task('watch', function() {
   runSequence('connect');
   gulp.watch([
     'lib/**', 'test/**'
-  ], ['reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch']);
+  ], function() {
+    runSequence('reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch');
+  });
 });
 
 gulp.task('default', function() {
