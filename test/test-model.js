@@ -26,7 +26,9 @@ describe('Test model', function() {
     });
 
     it('should have some initial attributes', function() {
+        expect(model.grow).to.be.a('function');
         expect(model.life).to.be.above(0);
+        expect(model.age).to.be.equal(0);
         expect(model.position instanceof Vector).to.be.true;
         expect(model.velocity instanceof Vector).to.be.true;
     });

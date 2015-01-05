@@ -5,12 +5,12 @@ $(function() {
   }
 
   var myCanvas = document.getElementById('my');
-  myCanvas.width = 800;
-  myCanvas.height = 600;
+  // myCanvas.width = 800;
+  // myCanvas.height = 600;
   var myCtx = myCanvas.getContext('2d');
 
   var particle = new anthParticle({
-    fps: 30,
+    fps: 60,
     canvas: myCanvas
   });
 
