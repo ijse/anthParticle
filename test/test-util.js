@@ -35,14 +35,19 @@ describe('Utils test', function() {
     }
 
     var O = util.extend(B, A);
+
+    B.prototype.setHeight = function(h) {
+      this.height = h;
+    };
+
     var q = new O('a', 10, 100);
     expect(q.setAge).to.be.a('function');
+    expect(q.setHeight).to.be.a('function');
     expect(q.age).to.be.equal(10);
     expect(q.name).to.be.equal('a');
 
     expect(q instanceof B).to.be.ok;
     expect(q instanceof A).to.be.ok;
-
   });
 
   it('util.merge()', function() {
