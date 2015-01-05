@@ -143,4 +143,27 @@ describe('Utils test', function() {
     done();
   });
 
+  it('util.throttle()', function(done) {
+    var counter = 0;
+
+    var throttled = util.throttle(function() {
+      counter ++;
+    }, 100);
+
+    setTimeout(throttled, 0);
+    setTimeout(throttled, 10);
+    setTimeout(throttled, 20);
+    setTimeout(throttled, 50);
+    setTimeout(throttled, 100);
+    setTimeout(throttled, 150);
+    setTimeout(throttled, 200);
+    setTimeout(throttled, 500);
+    setTimeout(function() {
+      console.log(counter);
+      expect(counter).to.be.equal(4);
+      done();
+    }, 550);
+
+  });
+
 });
