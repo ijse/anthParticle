@@ -32,4 +32,27 @@ describe('Test model', function() {
         expect(model.position instanceof Vector).to.be.true;
         expect(model.velocity instanceof Vector).to.be.true;
     });
+
+    it('should be able to set age ', function() {
+        var minY = +modelData.move_from_rect.values[1];
+        var maxY = +modelData.move_to_rect.values[1];
+
+        var life = model.life;
+        var age = model.age;
+        var py = 0;
+
+        model.setAge(0);
+        // ...cause it is a float
+        py = Math.round(model.position.y);
+        expect(py).to.be.equal(minY);
+
+        model.setAge(life/2);
+        py = Math.round(model.position.y);
+        expect(py).to.be.equal((maxY+minY)/2);
+
+        model.setAge(life);
+        py = Math.round(model.position.y);
+        expect(py).to.be.equal(maxY);
+
+    });
 });
