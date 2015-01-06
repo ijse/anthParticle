@@ -159,7 +159,6 @@ describe('Utils test', function() {
     setTimeout(throttled, 200);
     setTimeout(throttled, 500);
     setTimeout(function() {
-      console.log(counter);
       expect(counter).to.be.equal(4);
       done();
     }, 550);
