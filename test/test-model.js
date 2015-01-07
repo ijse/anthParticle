@@ -11,6 +11,8 @@ var util = require('../lib/util.js');
 
 describe('Test model', function() {
     "use strict";
+    var sceneWidth = 720;
+    var sceneHeight = 1280;
     var model = null;
     var modelData = require('./res/snow/config.json').scene.model[0];
     var modelImage = new Image();
@@ -20,6 +22,8 @@ describe('Test model', function() {
         model = new Model(modelData, function(ltwh) {
             return util.clipImageToCanvas.bind(null, modelImage).apply(null, ltwh);
         });
+
+        model.initPosition(sceneWidth, sceneHeight);
 
         expect(model instanceof Model).to.be.true;
         expect(model instanceof Particle).to.be.true;
@@ -33,9 +37,9 @@ describe('Test model', function() {
         expect(model.velocity instanceof Vector).to.be.true;
     });
 
-    it('should be able to set age ', function() {
-        var minY = +modelData.move_from_rect.values[1];
-        var maxY = +modelData.move_to_rect.values[1];
+    it('should be able to set age and change position.y', function() {
+        var minY = model.oriPosition.y;
+        var maxY = model.destPosition.y;
 
         var life = model.life;
         var age = model.age;
@@ -48,11 +52,58 @@ describe('Test model', function() {
 
         model.setAge(life/2);
         py = Math.round(model.position.y);
-        expect(py).to.be.equal((maxY+minY)/2);
+        expect(py).to.be.equal(Math.round((maxY+minY)/2));
 
         model.setAge(life);
         py = Math.round(model.position.y);
         expect(py).to.be.equal(maxY);
 
     });
+
+    it('should init at random position.x', function() {
+        var minX = modelData.move_from_rect.values[0];
+        var maxX = modelData.move_from_rect.values[2];
+
+        minX = +minX;
+        maxX = maxX === 'match_parent' ? sceneWidth : maxX;
+
+        var py = Math.round(model.oriPosition.x);
+        expect(py).to.be.within(minX, maxX);
+    });
+
+    it('should init at random position.y', function() {
+        var min = modelData.move_from_rect.values[1];
+        var max = modelData.move_from_rect.values[3];
+
+        min = +min;
+        max = max === 'match_parent' ? sceneWidth : (min + (+max));
+
+        var py = Math.round(model.oriPosition.y);
+        expect(py).to.be.within(min, max);
+    });
+
+    it('should end at random position.x', function() {
+        var minX = modelData.move_to_rect.values[0];
+        var maxX = modelData.move_to_rect.values[2];
+
+        minX = +minX;
+        maxX = maxX === 'match_parent' ? sceneHeight : maxX;
+
+        var py = Math.round(model.destPosition.x);
+        expect(py).to.be.within(minX, maxX);
+    });
+
+    it('should end at random position.y', function() {
+        var min = modelData.move_to_rect.values[1];
+        var max = modelData.move_to_rect.values[3];
+
+        min = +min;
+        max = max === 'match_parent' ? sceneHeight : (min + (+max));
+
+        var py = Math.round(model.destPosition.y);
+        expect(py).to.be.within(min, max);
+    });
+
+
+
 });
