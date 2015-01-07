@@ -62,44 +62,48 @@ describe('Test model', function() {
     it('should init at random position.x', function() {
         var minX = modelData.move_from_rect.values[0];
         var maxX = modelData.move_from_rect.values[2];
+        var offset = model.imageCanvas.width;
 
         minX = +minX;
         maxX = maxX === 'match_parent' ? sceneWidth : maxX;
 
-        var py = Math.round(model.oriPosition.x);
+        var py = Math.round(model.oriPosition.x + offset);
         expect(py).to.be.within(minX, maxX);
     });
 
     it('should init at random position.y', function() {
         var min = modelData.move_from_rect.values[1];
         var max = modelData.move_from_rect.values[3];
+        var offset = model.imageCanvas.height;
 
         min = +min;
         max = max === 'match_parent' ? sceneWidth : (min + (+max));
 
-        var py = Math.round(model.oriPosition.y);
+        var py = Math.round(model.oriPosition.y + offset);
         expect(py).to.be.within(min, max);
     });
 
     it('should end at random position.x', function() {
         var minX = modelData.move_to_rect.values[0];
         var maxX = modelData.move_to_rect.values[2];
+        var offset = model.imageCanvas.width;
 
         minX = +minX;
         maxX = maxX === 'match_parent' ? sceneHeight : maxX;
 
-        var py = Math.round(model.destPosition.x);
+        var py = Math.round(model.destPosition.x - offset);
         expect(py).to.be.within(minX, maxX);
     });
 
     it('should end at random position.y', function() {
         var min = modelData.move_to_rect.values[1];
         var max = modelData.move_to_rect.values[3];
+        var offset = model.imageCanvas.height;
 
         min = +min;
         max = max === 'match_parent' ? sceneHeight : (min + (+max));
 
-        var py = Math.round(model.destPosition.y);
+        var py = Math.round(model.destPosition.y - offset);
         expect(py).to.be.within(min, max);
     });
 
