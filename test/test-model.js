@@ -26,7 +26,6 @@ describe('Test model', function() {
         model.initPosition(sceneWidth, sceneHeight);
 
         expect(model instanceof Model).to.be.true;
-        expect(model instanceof Particle).to.be.true;
     });
 
     it('should have some initial attributes', function() {
