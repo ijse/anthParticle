@@ -17,12 +17,12 @@ $(function() {
   // get xml
   $.ajax({
     type: 'GET',
-    url: '../res/snow/config.xml',
+    url: './data/config.xml',
     dataType: 'text'
   }).success(function(data) {
     // get picture
     var resImg = new Image();
-    resImg.src = '../res/snow/cypic.png?' + (+new Date());
+    resImg.src = './data/cypic.png?' + (+new Date());
     resImg.onload = function() {
 
       // create particle

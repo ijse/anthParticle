@@ -11,7 +11,6 @@ var connect = require('gulp-connect');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-var coverage = require('gulp-coverage');
 
 var restartCount = 0;
 
@@ -25,9 +24,7 @@ gulp.task('connect', function() {
 gulp.task('jshint', function() {
   return gulp.src([
       '*.js',
-      '{lib,test}/**/*.{js,html}',
-      '!test/html/lib/**',
-      '!test/html/coverage.html'
+      '{lib,test}/**/*.{js,html}'
     ])
     .pipe(jshint.extract('auto'))
     .pipe(jshint())
@@ -78,16 +75,6 @@ gulp.task('karma', function() {
     }));
 });
 
-gulp.task('jsc', function() {
-  return gulp.src('test/*.js', { read: false })
-    .pipe(coverage.instrument({
-      pattern: [ 'index.js', 'lib/**' ],
-    }))
-    .pipe(mocha())
-    .pipe(coverage.report({
-      outFile: 'test/html/coverage.html'
-    }));
-});
 
 gulp.task('package', function() {
   var ver = require('./package.json').version;
@@ -136,14 +123,14 @@ gulp.task('restartCount', function() {
 
 gulp.task('reloadServer', function() {
   return gulp.src([
-    'build/**', 'test/html/**'
+    'build/**', 'example/**'
   ]).pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
   runSequence('connect');
   gulp.watch([
-    'lib/**', 'test/**'
+    'lib/**', 'example/**'
   ], function() {
     runSequence('reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch');
   });
