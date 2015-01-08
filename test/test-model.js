@@ -5,7 +5,6 @@ var expect = chai.expect;
 
 var fs = require('fs');
 var Model = require('../lib/model.js');
-var Particle = require('../lib/particle.js');
 var Vector = require('../lib/vector.js');
 var util = require('../lib/util.js');
 
