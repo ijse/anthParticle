@@ -1,0 +1,41 @@
+body {
+  padding: 40px;
+  background-color: #EDEDED;
+  color: #5c5e61;
+  text-shadow: 1px 1px 1px;
+}
+canvas {
+  width: 360px;
+  height: 640px;
+  background-color: black;
+  box-shadow: 0 0 10px;
+}
+.wrap {
+  width: 1000px;
+  margin: 0 auto;
+}
+.col-left {
+  float: left;
+  margin-right: 10px;
+}
+.col-right {
+  position: relative;
+}
+.col-right label {
+  display: inline-block;
+  width: 60px;
+}
+.col-right img,
+.col-right textarea {
+  vertical-align: top;
+  border: 1px solid #000;
+  background-color: black;
+}
+.col-right textarea {
+  width: 620px;
+  height: 500px;
+}
+
+.CodeMirror {
+  height: 565px;
+}

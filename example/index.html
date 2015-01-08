@@ -3,26 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title> Test anthParticle</title>
-  <style>
-
-  body {
-    padding: 40px;
-    color: white;
-    background-color: black;
-  }
-  canvas {
-    width: 360px;
-    height: 640px;
-    border: 1px solid #fff;
-  }
-  </style>
+  <link rel="stylesheet" href="lib/codemirror/codemirror.css" />
+  <link rel="stylesheet" href="lib/codemirror/night.css" />
+  <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
 
-  <h1>  Test anthParticle here. </h1>
-  <canvas id="my"></canvas>
+  <div class="wrap">
+    <h1>  Test anthParticle here. </h1>
+
+    <div class="col-left">
+      <canvas id="my"></canvas>
+
+      <div class="control-buttons">
+        <button id="startBtn" onclick="app.startEmulator()">Start</button>
+        <button id="stopBtn" onclick="app.stopEmulator()" style="display: none;">Stop</button>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div>
+        <label>Image: </label>
+        <img id="imgRes" src="data/cypic.png" height="52" width="199" />
+      </div>
+
+      <div class="xmlDiv">
+        <label>XmlData: </label>
+        <textarea id="xmlEditor"></textarea>
+      </div>
+    </div>
+  </div>
 
   <script src="lib/jquery.js"></script>
+  <script src="lib/codemirror/codemirror.js"></script>
+  <script src="lib/codemirror/xml/xml.js"></script>
   <script src="lib/debug.js"></script>
   <script src="../build/anthParticle.js"></script>
   <script src="js/main.js"></script>
