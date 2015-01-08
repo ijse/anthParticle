@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title> Test anthParticle</title>
   <link rel="stylesheet" href="lib/codemirror/codemirror.css" />
-  <link rel="stylesheet" href="lib/codemirror/night.css" />
+  <link rel="stylesheet" href="lib/codemirror/lesser-dark.css" />
   <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
@@ -25,6 +25,7 @@
       <div>
         <label>Image: </label>
         <img id="imgRes" src="data/cypic.png" height="52" width="199" />
+        <input type="file" id="uploadImage" onchange="app.setImage(event, this)" />
       </div>
 
       <div class="xmlDiv">

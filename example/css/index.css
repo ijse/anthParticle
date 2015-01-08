@@ -2,7 +2,6 @@ body {
   padding: 40px;
   background-color: #EDEDED;
   color: #5c5e61;
-  text-shadow: 1px 1px 1px;
 }
 canvas {
   width: 360px;

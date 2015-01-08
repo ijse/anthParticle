@@ -7,7 +7,7 @@ $(function() {
 
   var xmlEditor = CodeMirror.fromTextArea(xmlEditorDom, {
     lineNumbers: true,
-    theme: 'night',
+    theme: 'lesser-dark',
     mode: 'xml'
   });
 
@@ -66,11 +66,20 @@ $(function() {
         });
 
       },
-      setImage: function(img) {
-        return this.imgData = img;
-      },
-      setXml: function(xml) {
-        return this.xmlData = xml;
+      setImage: function(event) {
+        var file = event.target.files[0];
+
+        if(!file.type.match('image.*')) {
+          alert('Image Error!!');
+          return ;
+        }
+
+        var reader = new FileReader();
+        var imgInput = $('#imgRes')[0];
+        reader.onload = function(e) {
+            imgInput.src = e.target.result;
+          }
+        reader.readAsDataURL(file);
       }
     }
   })();
