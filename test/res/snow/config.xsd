@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="scene">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="pic_name" type="xs:string"></xs:element>
+      <xs:element name="width_height" type="xs:string"></xs:element>
+      <xs:element name="src_scale" type="xs:string"></xs:element>
+      <xs:element name="max" type="xs:int"></xs:element>
+      <xs:element name="model" maxOccurs="unbounded">
+       <xs:complexType>
+        <xs:sequence>
+         <xs:element name="chance_range" type="xs:string"></xs:element>
+         <xs:element name="active_time" type="xs:string"></xs:element>
+         <xs:element name="src_ltwh" type="xs:string"></xs:element>
+         <xs:element name="move_from_rect" type="xs:string"></xs:element>
+         <xs:element name="move_to_rect" type="xs:string"></xs:element>
+         <xs:element name="rotate" type="xs:string"></xs:element>
+         <xs:element name="alpha" type="xs:string"></xs:element>
+         <xs:element name="scale" type="xs:string"></xs:element>
+       </xs:sequence>
+     </xs:complexType>
+   </xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

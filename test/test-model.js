@@ -107,6 +107,24 @@ describe('Test model', function() {
         expect(py).to.be.within(min, max);
     });
 
+    it('should has right moment values', function() {
+        expect(model.momentIn).to.be.equal(0.1);
+        expect(model.momentOut).to.be.equal(0.9);
+    });
 
+    it('should has right alpha data', function() {
+        var min = +modelData.alpha.values[0]/255;
+        var max = +modelData.alpha.values[1]/255;
+        expect(model.finalAlpha).to.be.within(min, max);
+    });
+
+    it('should has right scale datas', function() {
+        var minFrom = modelData.scale.values[0];
+        var maxFrom = modelData.scale.values[1];
+        var minTo = modelData.scale.values[2];
+        var maxTo = modelData.scale.values[3];
+        expect(model.fromScale).to.be.within(minFrom, maxFrom);
+        expect(model.toScale).to.be.within(minTo, maxTo);
+    });
 
 });
