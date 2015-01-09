@@ -1,8 +1,5 @@
 $(function() {
 
-  if(typeof debug !== 'undefined') {
-    debug.enable('ap:*');
-  }
   var xmlEditorDom = document.getElementById('xmlEditor');
 
   var xmlEditor = CodeMirror.fromTextArea(xmlEditorDom, {
