@@ -48,18 +48,11 @@ $(function() {
         particle.stop();
 
         particle
-        .load(xmlData, imgData)
-        .then(function() {
+        .load(xmlData, imgData, function(err) {
+          if(err) {
+            throw err;
+          }
           particle.start();
-
-          // setTimeout(function() {
-          //   console.log('stop!');
-          //   particle.stop();
-          // }, 50000);
-
-        }).fail(function(e) {
-          // console.log(e);
-          throw e;
         });
 
       },

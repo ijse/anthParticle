@@ -50,11 +50,10 @@ describe('Test main', function(){
       fps: 10,
       canvas: document.createElement('canvas')
     });
-    ins.load(configXml, sceneImage)
-      .then(function() {
-        expect(ins.curScene instanceof Scene).to.be.true;
-        done();
-      }).fail(done);
+    ins.load(configXml, sceneImage, function(err) {
+      expect(ins.curScene instanceof Scene).to.be.true;
+      done(err);
+    });
   });
 
 });

@@ -17,12 +17,10 @@ describe('Parse xml configs', function() {
   it('parse simple xml text', function(done) {
     xmlParser.parse.should.be.a('function');
     xmlParser
-      .parse('<xml>Hello, <who calls="world">world</who>!</xml>')
-      .fail(done)
-      .then(function(obj) {
+      .parse('<xml>Hello, <who calls="world">world</who>!</xml>', function(err, obj) {
         // console.log(JSON.stringify(obj, null, ' '));
         obj.should.be.a('object');
-        done();
+        done(err);
       });
   });
 
@@ -31,9 +29,7 @@ describe('Parse xml configs', function() {
     var xmlStrs = '' + fs.readFileSync('test/res/snow/config.xml');
 
     xmlParser
-      .parse(xmlStrs)
-      .fail(done)
-      .then(function(obj) {
+      .parse(xmlStrs, function(err, obj) {
         // console.log(JSON.stringify(obj, null, ' '));
         obj.should.be.a('object');
         // obj.should.have.property('scene');
@@ -65,7 +61,8 @@ describe('Parse xml configs', function() {
         mode.chance_range.should.have.property('values');
         mode.chance_range.values[0].should.be.a('string');
 
-        done();
+        done(err);
+
       });
   });
 });
