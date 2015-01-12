@@ -7,6 +7,7 @@ var fs = require('fs');
 var Scene = require('../lib/scene.js');
 
 var anthParticle = require('../lib/index.js');
+var xmlLoader = require('../lib/loader/xml.js');
 
 describe('Test main', function(){
 
@@ -27,7 +28,10 @@ describe('Test main', function(){
       fps: 10,
       canvas: document.createElement('canvas')
     });
-    ins.load(configXml, sceneImage, function(err) {
+    ins.reload(new xmlLoader({
+      data: configXml,
+      image: sceneImage
+    }), function(err) {
       expect(ins.curScene instanceof Scene).to.be.true;
       done(err);
     });

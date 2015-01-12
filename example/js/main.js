@@ -48,9 +48,10 @@ $(function() {
         var imgData = document.getElementById('imgRes');
 
         particle.stop();
-
-        particle
-        .load(xmlData, imgData, function(err) {
+        particle.reload(new anthParticleXmlParser({
+          data: xmlData,
+          image: imgData
+        }), function(err) {
           if(err) {
             throw err;
           }

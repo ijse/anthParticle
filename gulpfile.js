@@ -98,13 +98,26 @@ gulp.task('package', function() {
 });
 
 gulp.task('build', function() {
-  // todo: browserify, uglify, copy, ...
-  return gulp.src('index.js', { read: false })
+
+  // index
+  gulp.src('lib/index.js', { read: false })
     .pipe(browserify({
       insertGlobals: false,
+      standalone: 'anthParticle',
       debug: false
     }))
     .pipe(rename('anthParticle.js'))
+    .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest('./example/lib/'));
+
+  // loaders
+  return gulp.src('lib/loader/xml.js', { read: false})
+    .pipe(browserify({
+      insertGlobals: false,
+      standalone: 'anthParticleXmlParser',
+      debug: false
+    }))
+    .pipe(rename('anthParticle.xmlLoader.js'))
     .pipe(gulp.dest('./build/'))
     .pipe(gulp.dest('./example/lib/'))
     .pipe(connect.reload());
@@ -132,7 +145,7 @@ gulp.task('reloadServer', function() {
 gulp.task('watch', function() {
   runSequence('connect');
   gulp.watch([
-    'lib/**', 'example/**'
+    'lib/**', 'example/**', '!example/lib/**'
   ], function() {
     runSequence('reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch');
   });

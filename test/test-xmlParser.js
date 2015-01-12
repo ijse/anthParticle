@@ -13,10 +13,32 @@ describe('Parse xml configs', function() {
   "use strict";
   this.timeout(5000);
 
-  var xmlParser = require('../lib/xmlParser.js');
+  var configXml = fs.readFileSync(__dirname + '/res/snow/config.xml').toString();
+  var sceneImage = new Image();
+  sceneImage.src = 'data:image/png;base64,' + fs.readFileSync(__dirname + '/res/snow/cypic.png').toString('base64');
+
+  var xmlLoader = require('../lib/loader/xml.js');
+
+  it('create loader instance', function(done) {
+
+    var XmlLoader = xmlLoader;
+    var ins = new XmlLoader({
+      data: configXml,
+      image: sceneImage
+    });
+
+    ins.load(function(err, data, img) {
+      expect(err).to.be.not.ok;
+      expect(data).to.be.ok;
+      expect(img).to.be.ok;
+      done();
+    });
+
+  });
+
   it('parse simple xml text', function(done) {
-    xmlParser.parse.should.be.a('function');
-    xmlParser
+    xmlLoader.parse.should.be.a('function');
+    xmlLoader
       .parse('<xml>Hello, <who calls="world">world</who>!</xml>', function(err, obj) {
         // console.log(JSON.stringify(obj, null, ' '));
         obj.should.be.a('object');
@@ -28,7 +50,7 @@ describe('Parse xml configs', function() {
 
     var xmlStrs = '' + fs.readFileSync('test/res/snow/config.xml');
 
-    xmlParser
+    xmlLoader
       .parse(xmlStrs, function(err, obj) {
         // console.log(JSON.stringify(obj, null, ' '));
         obj.should.be.a('object');
