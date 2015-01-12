@@ -31,6 +31,8 @@ $(function() {
       canvas: myCanvas
     });
 
+    $('footer em').text(anthParticle.VERSION);
+
     return {
       stopEmulator: function() {
         $('#stopBtn').hide();

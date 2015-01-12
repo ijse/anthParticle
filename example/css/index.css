@@ -19,6 +19,7 @@ canvas {
 }
 .col-right {
   position: relative;
+  float: right;
 }
 .col-right label {
   display: inline-block;
@@ -31,10 +32,16 @@ canvas {
   background-color: black;
 }
 .col-right textarea {
-  width: 620px;
-  height: 500px;
+  width: 570px;
 }
 
 .CodeMirror {
-  height: 565px;
+  width: 625px;
+  height: 595px;
+}
+
+.wrap footer {
+  clear: both;
+  position: relative;
+  display: inline-block;
 }
