@@ -14,6 +14,8 @@ var uglify = require('gulp-uglify');
 
 var restartCount = 0;
 
+var VERSION = require('./package.json').version;
+
 gulp.task('connect', function() {
   connect.server({
     port: 8088,
@@ -77,20 +79,19 @@ gulp.task('karma', function() {
 
 
 gulp.task('package', function() {
-  var ver = require('./package.json').version;
 
   gulp.src('index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
     debug: false
-  })).pipe(rename('anthParticle-' + ver + '.js'))
+  })).pipe(rename('anthParticle-' + VERSION + '.js'))
   .pipe(gulp.dest('./build/release'));
 
   gulp.src('index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
     debug: false
-  })).pipe(rename('anthParticle-' + ver + '.min.js'))
+  })).pipe(rename('anthParticle-' + VERSION + '.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./build/release'));
 
@@ -105,6 +106,7 @@ gulp.task('build', function() {
     }))
     .pipe(rename('anthParticle.js'))
     .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest('./example/lib/'))
     .pipe(connect.reload());
 });
 
