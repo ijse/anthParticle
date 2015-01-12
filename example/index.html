@@ -16,8 +16,12 @@
       <canvas id="my"></canvas>
 
       <div class="control-buttons">
-        <button id="startBtn" onclick="app.startEmulator()">Start</button>
-        <button id="stopBtn" onclick="app.stopEmulator()" style="display: none;">Stop</button>
+        <button id="startBtn" onclick="app.start()">Load&amp;Start</button>
+
+        <button id="pauseBtn" onclick="app.play()">Play</button>
+        <button id="pauseBtn" onclick="app.pause()">Pause</button>
+
+        <button id="stopBtn" onclick="app.stop()">Stop</button>
       </div>
     </div>
 

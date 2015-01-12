@@ -68,8 +68,8 @@ describe('Test main', function(){
 
     setTimeout(function() {
       expect(counter).to.not.equal(0);
-      save1 = counter;
       ins.pause();
+      save1 = counter;
     }, 1000);
 
     setTimeout(function() {
@@ -78,8 +78,8 @@ describe('Test main', function(){
     }, 1500);
 
     setTimeout(function() {
-      expect(counter).to.be.above(save1);
       ins.stop();
+      expect(counter).to.be.above(save1);
       done();
     }, 1800);
   });

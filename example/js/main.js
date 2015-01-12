@@ -34,29 +34,32 @@ $(function() {
     $('footer em').text(anthParticle.VERSION);
 
     return {
-      stopEmulator: function() {
-        $('#stopBtn').hide();
-        $('#startBtn').show();
+      stop: function() {
         particle.stop();
       },
-      startEmulator: function() {
-
-        $('#startBtn').hide();
-        $('#stopBtn').show();
+      play: function() {
+        particle.play();
+      },
+      pause: function() {
+        particle.pause();
+      },
+      start: function() {
 
         var xmlData = xmlEditor.getValue();
         var imgData = document.getElementById('imgRes');
 
-        particle.stop();
-        particle.reload(new anthParticleXmlParser({
-          data: xmlData,
-          image: imgData
-        }), function(err) {
-          if(err) {
-            throw err;
-          }
-          particle.start();
-        });
+
+        setTimeout(function() {
+          particle.reload(new anthParticleXmlParser({
+            data: xmlData,
+            image: imgData
+          }), function(err) {
+            if(err) {
+              throw err;
+            }
+            particle.start();
+          });
+        }, 0);
 
       },
       setImage: function(event) {
