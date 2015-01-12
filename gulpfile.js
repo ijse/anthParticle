@@ -80,20 +80,33 @@ gulp.task('karma', function() {
 
 gulp.task('package', function() {
 
-  gulp.src('index.js', { read: false })
+  gulp.src('lib/index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
+    standalone: 'anthParticle',
     debug: false
-  })).pipe(rename('anthParticle-' + VERSION + '.js'))
+  }))
+  .pipe(rename('anthParticle-' + VERSION + '.js'))
   .pipe(gulp.dest('./build/release'));
 
-  gulp.src('index.js', { read: false })
+  gulp.src('lib/index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
+    standalone: 'anthParticle',
     debug: false
-  })).pipe(rename('anthParticle-' + VERSION + '.min.js'))
+  }))
+  .pipe(rename('anthParticle-' + VERSION + '.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./build/release'));
+
+  gulp.src('lib/loader/xml.js', { read: false})
+  .pipe(browserify({
+    insertGlobals: false,
+    standalone: 'anthParticleXmlParser',
+    debug: false
+  })).pipe(rename('anthParticle.xmlLoader-' + VERSION + '.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('./build/release/loaders'));
 
 });
 
@@ -111,7 +124,7 @@ gulp.task('build', function() {
     .pipe(gulp.dest('./example/lib/'));
 
   // loaders
-  return gulp.src('lib/loader/xml.js', { read: false})
+  gulp.src('lib/loader/xml.js', { read: false})
     .pipe(browserify({
       insertGlobals: false,
       standalone: 'anthParticleXmlParser',
