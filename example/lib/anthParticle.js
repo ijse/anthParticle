@@ -160,6 +160,15 @@ AnthParticle.prototype.start = function() {
   }).call(_this);
 };
 
+AnthParticle.prototype.pause = function() {
+  this.status.animating = false;
+};
+
+AnthParticle.prototype.play = function() {
+  this.status.animating = true;
+  this.start();
+};
+
 AnthParticle.prototype.stop = function() {
   debug('stop play animation frames');
   this.animationFrame.cancel(this.frameId);

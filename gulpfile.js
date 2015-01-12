@@ -138,6 +138,14 @@ gulp.task('watch', function() {
   });
 });
 
+gulp.task('test', function() {
+  gulp.watch([
+    'lib/**', 'test/test-*.js'
+  ], function() {
+    runSequence('jshint', 'karmaWatch');
+  });
+});
+
 gulp.task('default', function() {
   // start, for git pre-commit hook
   return runSequence('jshint', 'karma', 'build');
