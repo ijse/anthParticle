@@ -16,6 +16,7 @@ canvas {
 .col-left {
   float: left;
   margin-right: 10px;
+  position: relative;
 }
 .col-right {
   position: relative;

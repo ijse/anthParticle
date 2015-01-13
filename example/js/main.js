@@ -26,9 +26,12 @@ $(function() {
     // myCanvas.height = 600;
     var myCtx = myCanvas.getContext('2d');
 
+    var fpsMeter = new FPSMeter($('.col-left')[0]);
+
     var particle = new anthParticle({
       fps: 60,
-      canvas: myCanvas
+      canvas: myCanvas,
+      fpsMeter: fpsMeter
     });
 
     $('footer em').text(anthParticle.VERSION);

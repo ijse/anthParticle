@@ -71,6 +71,7 @@ function AnthParticle(options, callback) {
   this.frameId = 0;
   options = options || {};
   this.fps = options.fps || 60;
+  this.fpsMeter = options.fpsMeter;
 
   this.animationFrame = new AnimationFrame(this.fps);
 
@@ -158,7 +159,7 @@ AnthParticle.prototype.start = function(isContinued) {
 
     var tickTime = Date.now();
     return AF.request(function() {
-
+      _this.fpsMeter && _this.fpsMeter.tickStart();
       if(!status.animating) {
         return ;
       }
@@ -170,6 +171,8 @@ AnthParticle.prototype.start = function(isContinued) {
       if(Math.abs(timePassed-shouldInterval) <= (shouldInterval*0.1)) {
         fn.call(_this, timePassed, _this.fps);
       }
+
+      _this.fpsMeter && _this.fpsMeter.tick();
 
       loop(key);
     });
