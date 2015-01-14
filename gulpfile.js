@@ -55,26 +55,29 @@ gulp.task('mocha', function() {
     .on('error', gutil.log);
 });
 
-var karma = require('gulp-karma');
+var karma = require('karma').server;
 gulp.task('karmaWatch', function(done) {
 
-  return gulp.src('test/test-*.js', { read: false })
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run'
-    }))
-    .on('error', function(err) {
-      // throw err;
-      console.log(err);
-    });
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, function() {
+    done();
+  });
+  return ;
+
 });
 
-gulp.task('karma', function() {
-  return gulp.src('test/test-*.js', { read: false })
-    .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run'
-    }));
+gulp.task('karma', function(done) {
+
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+  }, function() {
+    done();
+  });
+  return ;
+
 });
 
 

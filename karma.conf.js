@@ -48,8 +48,13 @@ module.exports = function(config) {
       { pattern: 'index.js', watched: true, included: false, served: false },
       { pattern: 'test/test-*.js', watched: true, included: true, served: true }
       */
+      { pattern: 'test/res/**', watched: true, included: false, served: true },
       'test/test-*.js'
     ],
+
+    proxies: {
+      '/test/res/snow/cypic.png': '/base/test/res/snow/cypic.png'
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
