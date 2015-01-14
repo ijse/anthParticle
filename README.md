@@ -27,7 +27,7 @@ options: {
 }
 ```
 
-- <canvas>: 画布
+- \<canvas\>: 画布
 - [fps]: 动画fps值，默认为60
 - [loader]: 加载器，可以有`xmlLoader`, `jsonLoader`等
 - [fpsMeter]: 显示FPS，需要引入FPSMeter，默认不显示
@@ -37,8 +37,8 @@ options: {
 
 重新加载数据。
 
-- <loader>: 加载器
-- <callback>: 加载成功后的回调函数，之后的操作都需要在此执行
+- \<loader\>: 加载器
+- \<callback\>: 加载成功后的回调函数，之后的操作都需要在此执行
 
 ### ap.start()
 
