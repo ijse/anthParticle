@@ -105,9 +105,18 @@ gulp.task('package', function() {
   gulp.src('lib/loader/xml.js', { read: false})
   .pipe(browserify({
     insertGlobals: false,
-    standalone: 'anthParticleXmlParser',
+    standalone: 'AnthParticleXmlLoader',
     debug: false
   })).pipe(rename('anthParticle.xmlLoader-' + VERSION + '.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('./build/release/loaders'));
+
+  gulp.src('lib/loader/json.js', { read: false})
+  .pipe(browserify({
+    insertGlobals: false,
+    standalone: 'AnthParticleJsonLoader',
+    debug: false
+  })).pipe(rename('anthParticle.jsonLoader-' + VERSION + '.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./build/release/loaders'));
 
@@ -130,13 +139,25 @@ gulp.task('build', function() {
   gulp.src('lib/loader/xml.js', { read: false})
     .pipe(browserify({
       insertGlobals: false,
-      standalone: 'anthParticleXmlParser',
+      standalone: 'AnthParticleXmlLoader',
       debug: false
     }))
     .pipe(rename('anthParticle.xmlLoader.js'))
     .pipe(gulp.dest('./build/'))
     .pipe(gulp.dest('./example/lib/'))
     .pipe(connect.reload());
+
+  gulp.src('lib/loader/json.js', { read: false})
+    .pipe(browserify({
+      insertGlobals: false,
+      standalone: 'AnthParticleJsonLoader',
+      debug: false
+    }))
+    .pipe(rename('anthParticle.jsonLoader.js'))
+    .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest('./example/lib/'))
+    .pipe(connect.reload());
+
 });
 
 

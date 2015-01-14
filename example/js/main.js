@@ -53,7 +53,7 @@ $(function() {
 
 
         setTimeout(function() {
-          particle.reload(new anthParticleXmlParser({
+          particle.reload(new AnthParticleXmlLoader({
             data: xmlData,
             image: imgData
           }), function(err) {

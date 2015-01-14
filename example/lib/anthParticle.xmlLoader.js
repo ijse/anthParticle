@@ -1,27 +1,43 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.anthParticleXmlParser=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.AnthParticleXmlLoader=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
 "use strict";
 
 var sax = _dereq_('sax');
 
-function anthParticleXmlParser(options) {
+function AnthParticleXmlLoader(options) {
   /*jshint -W040*/
   this.data = options.data;
   this.image = options.image;
 }
-anthParticleXmlParser.prototype.load = function(callback) {
+AnthParticleXmlLoader.prototype.load = function(callback) {
 
-  var img = this.image;
-  anthParticleXmlParser.parse(this.data, function(err, data) {
+  var _this = this;
+  AnthParticleXmlLoader.parse(this.data, function(err, data) {
 
-    callback(err, data, img);
+    // ensure model be an array
+    if(!(data.scene.model instanceof Array)) {
+      data.scene.model = [ data.scene.model ];
+    }
+
+    if(typeof _this.image === 'string') {
+      var img = new Image();
+      img.onload = function() {
+        callback(err, data, this);
+      };
+      img.onerror = function() {
+        callback('Image Not Found.');
+      };
+      img.src = _this.image;
+    } else {
+      callback(err, data, _this.image);
+    }
 
   });
 };
-module.exports = anthParticleXmlParser;
+module.exports = AnthParticleXmlLoader;
 
 
-anthParticleXmlParser.parse = function parse(xmlStr, callback) {
+AnthParticleXmlLoader.parse = function parse(xmlStr, callback) {
   var result = {};
   var stack = [ result ];
 
