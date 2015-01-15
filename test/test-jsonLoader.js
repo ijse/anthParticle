@@ -8,7 +8,7 @@ var expect = chai.expect;
 
 var JsonLoader = require('../lib/loader/json.js');
 
-describe.only('Test jsonLoader', function() {
+describe('Test jsonLoader', function() {
   "use strict";
   this.timeout(5000);
 

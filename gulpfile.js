@@ -86,7 +86,7 @@ gulp.task('package', function() {
   gulp.src('lib/index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
-    standalone: 'anthParticle',
+    standalone: 'AnthParticle',
     debug: false
   }))
   .pipe(rename('anthParticle-' + VERSION + '.js'))
@@ -95,7 +95,7 @@ gulp.task('package', function() {
   gulp.src('lib/index.js', { read: false })
   .pipe(browserify({
     insertGlobals: false,
-    standalone: 'anthParticle',
+    standalone: 'AnthParticle',
     debug: false
   }))
   .pipe(rename('anthParticle-' + VERSION + '.min.js'))
@@ -128,7 +128,7 @@ gulp.task('build', function() {
   gulp.src('lib/index.js', { read: false })
     .pipe(browserify({
       insertGlobals: false,
-      standalone: 'anthParticle',
+      standalone: 'AnthParticle',
       debug: false
     }))
     .pipe(rename('anthParticle.js'))

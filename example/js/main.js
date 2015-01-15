@@ -28,13 +28,13 @@ $(function() {
 
     var fpsMeter = new FPSMeter($('.col-left')[0]);
 
-    var particle = new anthParticle({
+    var particle = new AnthParticle({
       fps: 60,
       canvas: myCanvas,
       fpsMeter: fpsMeter
     });
 
-    $('footer em').text(anthParticle.VERSION);
+    $('footer em').text(AnthParticle.VERSION);
 
     return {
       stop: function() {
