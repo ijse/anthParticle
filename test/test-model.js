@@ -19,7 +19,10 @@ describe('Test model', function() {
 
     it('should get an instance of Model', function() {
         model = new Model(modelData, function(ltwh) {
-            return util.clipImageToCanvas.bind(null, modelImage).apply(null, ltwh);
+            var result = {};
+            result.image = util.clipImageToCanvas.bind(null, modelImage).apply(null, ltwh);
+            result.canvas = util.createCanvas(result.image.width*3, result.image.height*3);
+            return result;
         });
 
         model.initPosition(sceneWidth, sceneHeight);
