@@ -1427,7 +1427,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
