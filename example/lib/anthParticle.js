@@ -1,5 +1,6 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.AnthParticle=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
+var debug = _dereq_('debug')('ap:emitter');
 
 var util = _dereq_('./util.js');
 var Model = _dereq_('./model.js');
@@ -8,6 +9,10 @@ var Vector = _dereq_('./vector.js');
  * Particle Emitter
  */
 function Emitter(options) {
+    // Disable cache as default
+    this.spritPool = {};
+    this.modelPool = [];
+
     this.image = options.image;
     //TODO: scale image
     this.imageScale = options.imageScale;
@@ -35,21 +40,48 @@ Emitter.prototype.randomModel = function() {
     return luckyList[0][1];
 };
 
-Emitter.prototype.fire = function() {
+Emitter.prototype.fire = function(useModel) {
     var _this = this;
     var modelData = this.randomModel();
-    var model = new Model(modelData, function imageLoader(ltwh) {
-      return util.clipImageToCanvas.bind(null, _this.image).apply(null, ltwh);
-    });
+
+    var model = null;
+    function imageLoader(ltwh) {
+        var result = {};
+
+        // Cache image sprit
+        if(_this.spritPool[ltwh]) {
+            result = _this.spritPool[ltwh];
+            debug('reuse image sprit.');
+        } else {
+            result.image = util.clipImageToCanvas.bind(null, _this.image).apply(null, ltwh);
+            result.canvas = util.createCanvas(result.image.width*3, result.image.height*3);
+            _this.spritPool[ltwh] = result;
+        }
+
+        return result;
+    }
+
+    if(this.modelPool.length > 0) {
+        model = this.modelPool.pop();
+        Model.call(model, modelData, imageLoader);
+        debug('reuse model object', this.modelPool.length);
+    } else {
+        model = new Model(modelData, imageLoader);
+    }
 
     model.initPosition(this.sceneWidth, this.sceneHeight);
 
     return model;
 };
 
+Emitter.prototype.addToPool = function(model) {
+    this.modelPool.push(model);
+};
+
+
 module.exports = Emitter;
 
-},{"./model.js":3,"./util.js":5,"./vector.js":6}],2:[function(_dereq_,module,exports){
+},{"./model.js":3,"./util.js":5,"./vector.js":6,"debug":8}],2:[function(_dereq_,module,exports){
 "use strict";
 
 var debug = _dereq_('debug')('ap:index');
@@ -232,14 +264,17 @@ function Model(data, imageLoad) {
   this.acceleration = Vector.zero;
 
   // image in canvas
-  this.image = imageLoad(data['src_ltwh'].values);
-  var w = 3 * this.image.width;
-  var h = 3 * this.image.height;
-  this.imageCanvas = util.createCanvas(w, h);
+  var imgData = imageLoad(data['src_ltwh'].values);
+  this.image = imgData.image;
+  this.imageCanvas = imgData.canvas;
 
+  this.initAffects();
+}
+
+Model.prototype.initAffects = function() {
   // tweens
-  var alphaData = data['alpha'].values;
-  var scaleData = data['scale'].values;
+  var alphaData = this.data['alpha'].values;
+  var scaleData = this.data['scale'].values;
   this.finalAlpha = util.getRandom.apply(null, alphaData)/255;
   this.fromScale = util.getRandomArbitry.apply(null, scaleData);
   this.toScale = util.getRandomArbitry.apply(null, scaleData.slice(2));
@@ -249,8 +284,7 @@ function Model(data, imageLoad) {
   this.momentIn = +alphaData[2];
   this.momentOut = +alphaData[3];
 
-}
-
+};
 /**
  * Initialize position data
  * @param  {number} width  scene width
@@ -519,11 +553,14 @@ Scene.prototype.render = function(timePassed, fps) {
 
 /**
  * Create new actor to scene
+ * Actors that are fired would be here waiting for reusing.
+ *
  * @param  {number} agep 0~100
  * @return {object} the new actor
  */
  function hire(scene, agep) {
-     var newActor = scene.emitter.fire();
+     var newActor = null;
+     newActor = scene.emitter.fire();
 
      var age = newActor.life * (agep%100) / 100;
      newActor.setAge(age);
@@ -553,6 +590,11 @@ Scene.prototype.fireActors = function(actorIds) {
 
     while(actorIds.length) {
         var deadActorId = actorIds[actorIds.length-1];
+        var deadActor = this.actorList[deadActorId];
+
+        // Push in pool for reusing.
+        this.emitter.addToPool(deadActor);
+
         this.actorList[deadActorId] = this.actorList[this.actorList.length-1];
         this.actorList.length --;
         actorIds.length --;
