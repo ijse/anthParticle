@@ -29,11 +29,13 @@
       <div>
         <label>Image: </label>
         <img id="imgRes" src="data/cypic.png" height="52" width="199" />
-        <input type="file" id="uploadImage" onchange="app.setImage(event, this)" />
+        <input type="file" id="uploadImage" onchange="app.setImage(event, this)" />
       </div>
 
       <div class="xmlDiv">
         <label>XmlData: </label>
+        <button id="pack" onclick="app.pack()">Pack</button>
+        <a href id="zipFile" target="_blank"></a>
         <textarea id="xmlEditor"></textarea>
       </div>
     </div>

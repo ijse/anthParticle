@@ -16,10 +16,23 @@ var restartCount = 0;
 
 var VERSION = require('./package.json').version;
 
+
+var serverMiddleware = require('./server/routes.js').packLiveWP;
+
 gulp.task('connect', function() {
   connect.server({
     port: 8088,
-    livereload: true
+    root: 'example',
+    livereload: true,
+    middleware: function(connect) {
+      return [function(req, res, next) {
+        if(req.url === '/pack') {
+          serverMiddleware(req, res, next);
+        } else {
+          next();
+        }
+      }];
+    }
   });
 });
 
@@ -175,14 +188,14 @@ gulp.task('restartCount', function() {
 
 gulp.task('reloadServer', function() {
   return gulp.src([
-    'build/**', 'example/**'
+    'build/**', 'example/**', '!example/data/**'
   ]).pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
   runSequence('connect');
   gulp.watch([
-    'lib/**', 'example/**', '!example/lib/**'
+    'lib/**', 'example/**', '!example/{lib,data}/**'
   ], function() {
     runSequence('reloadServer', 'restartCount', 'jshint', 'build', 'karmaWatch');
   });

@@ -41,7 +41,13 @@
   },
   "dependencies": {
     "animation-frame": "^0.1.7",
+    "anthlivewp": "0.0.2",
+    "body-parser": "^1.10.1",
+    "connect": "^3.3.4",
+    "cookie-session": "^1.1.0",
     "debug": "^2.1.1",
-    "sax": "^0.6.1"
+    "multiparty": "^4.1.1",
+    "sax": "^0.6.1",
+    "serve-static": "^1.8.0"
   }
 }
