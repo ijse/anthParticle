@@ -295,6 +295,7 @@ Model.prototype.initPosition = function(width, height) {
   var destValues = this.data.move_to_rect.values;
 
   function genPos(ltwh, offsetPos) {
+    offsetPos = offsetPos || Vector.zero;
     var result = Vector.zero;
     var t = null;
 
