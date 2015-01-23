@@ -34,11 +34,14 @@
 
       <div class="xmlDiv">
         <label>XmlData: </label>
-        <button id="pack" onclick="app.pack()">Pack</button>
+        <button onclick="app.pack()">Pack</button>
+        <button onclick="app.toJson()">toJson</button>
         <a href id="zipFile" target="_blank"></a>
         <textarea id="xmlEditor"></textarea>
       </div>
     </div>
+
+    <div id="jsonDiv"></div>
 
     <footer>
       <p>Version: <em>-</em></p>

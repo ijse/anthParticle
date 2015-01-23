@@ -1510,7 +1510,7 @@ module.exports={
   },
   "dependencies": {
     "animation-frame": "^0.1.7",
-    "anthlivewp": "0.0.2",
+    "anthlivewp": "latest",
     "body-parser": "^1.10.1",
     "connect": "^3.3.4",
     "cookie-session": "^1.1.0",

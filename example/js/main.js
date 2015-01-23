@@ -36,6 +36,8 @@ $(function() {
 
     $('footer em').text(AnthParticle.VERSION);
 
+    var xmlData = '';
+
     return {
       stop: function() {
         particle.stop();
@@ -48,7 +50,7 @@ $(function() {
       },
       start: function() {
 
-        var xmlData = xmlEditor.getValue();
+        xmlData = xmlEditor.getValue();
         var imgData = document.getElementById('imgRes');
 
 
@@ -82,7 +84,7 @@ $(function() {
       },
       pack: function() {
 
-        var xmlData = xmlEditor.getValue();
+        xmlData = xmlEditor.getValue();
         var imgData = document.getElementById('imgRes');
 
         var cvs = document.createElement('canvas');
@@ -115,6 +117,12 @@ $(function() {
           alert('Error! ');
         });
 
+      },
+      toJson: function() {
+        xmlData = xmlEditor.getValue();
+        AnthParticleXmlLoader.parse(xmlData, function(err, json) {
+          $('#jsonDiv').text(JSON.stringify(json, false, ' '));
+        });
       }
     }
   })();
