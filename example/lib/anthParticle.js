@@ -1500,7 +1500,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "",
   "main": "index.js",
   "scripts": {
