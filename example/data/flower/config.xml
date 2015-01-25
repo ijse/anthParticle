@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<scene>
+    <width_height>720,1280</width_height>
+    <src_scale>1.0,1.0</src_scale>
+    <max>23</max>
+    <model>
+        <chance_range>0,.7</chance_range>
+		<active_time>4000,7000</active_time><!-- min,max -->
+        <src_ltwh>0,0,12,12</src_ltwh>
+		<move_from_rect>0,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>0,1280,match_parent,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,28,20</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.7,.9</chance_range>
+		<active_time>4000,7000</active_time><!-- min,max -->
+        <src_ltwh>0,14,24,31</src_ltwh>
+		<move_from_rect>0,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>0,1280,match_parent,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,19,27</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.9,1</chance_range>
+		<active_time>4000,7000</active_time><!-- min,max -->
+        <src_ltwh>26,0,36,42</src_ltwh>
+		<move_from_rect>0,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>0,1280,match_parent,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,4,4</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,1.5,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+</scene>
