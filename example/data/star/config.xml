@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<scene>
+    <pic_name>particle/star/_cyPic</pic_name>
+    <width_height>990,1280</width_height>
+    <src_scale>1.0,1.0</src_scale>
+    <max>13</max>
+    <model>
+        <chance_range>0,.4</chance_range>
+		<active_time>8000,13000</active_time><!-- min,max -->
+        <src_ltwh>0,0,19,20</src_ltwh>
+		<move_from_rect>0,0,990,1280</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>0,0,990,1280</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,5,15</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1.5,2,1,1</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.4,1</chance_range>
+		<active_time>5000,9000</active_time><!-- min,max -->
+        <src_ltwh>21,0,19,18</src_ltwh>
+		<move_from_rect>0,0,990,1280</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>0,0,990,1280</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,8,2</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1.5,2.5,1,1</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+</scene>

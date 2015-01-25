@@ -1,152 +1,93 @@
-$(function() {
-
-  var xmlEditorDom = document.getElementById('xmlEditor');
-
-  var xmlEditor = CodeMirror.fromTextArea(xmlEditorDom, {
-    lineNumbers: true,
-    theme: 'lesser-dark',
-    mode: 'xml'
+(function() {
+  var app = angular.module('anthParticleApp', [
+    'anthParticle',
+    'ngMaterial'
+  ]).config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryColor('indigo')
+      .accentColor('light-blue');
   });
 
+  app.run(function($rootScope, $http) {
+    var curParticle = null;
+    var menus = [
+      {
+        name: '动效库',
+        list: [
+          {
+            name: 'snow',
+            image: '/data/snow/_cyPic',
+            data: '/data/snow/config.xml'
+          },
+          {
+            name: 'snow2',
+            image: '/data/snow2/_cyPic',
+            data: '/data/snow2/config.xml'
+          },
+          {
+            name: 'snow3',
+            image: '/data/snow3/_cyPic',
+            data: '/data/snow3/config.xml'
+          },
+          {
+            name: 'flower',
+            image: '/data/flower/_cyPic',
+            data: '/data/flower/config.xml'
+          },
+          {
+            name: 'smallFlower',
+            image: '/data/smallFlower/_cyPic',
+            data: '/data/smallFlower/config.xml'
+          },
+          {
+            name: 'rain',
+            image: '/data/rain/_cyPic',
+            data: '/data/rain/config.xml'
+          },
+          {
+            name: 'star',
+            image: '/data/star/_cyPic',
+            data: '/data/star/config.xml'
+          },
 
-  // get xml
-  $.ajax({
-    type: 'GET',
-    url: './data/smallFlower/config.xml',
-    dataType: 'text'
-  }).success(function(data) {
+        ]
+      }
+    ];
 
-    xmlEditor.setValue(data);
+    $rootScope.menus = menus;
+
+    $rootScope.applyParticle = function(particle) {
+
+      $http
+      .get(particle.data)
+      .success(function(data) {
+
+        var img = new Image();
+        img.onload = function() {
+
+          particleData = {
+            data: data,
+            image: this
+          };
+
+          $rootScope.$broadcast('applyParticle', particleData);
+          curParticle = particle;
+
+        };
+        img.src = particle.image;
+      });
+
+    };
+
   });
 
-
-  var app = (function() {
-    var myCanvas = document.getElementById('my');
-    // myCanvas.width = 800;
-    // myCanvas.height = 600;
-    var myCtx = myCanvas.getContext('2d');
-
-    var fpsMeter = new FPSMeter($('.col-left')[0]);
-
-    var particle = new AnthParticle({
-      fps: 60,
-      canvas: myCanvas,
-      fpsMeter: fpsMeter
+  app.controller('previewController', function($scope, $http) {
+    $scope.name = 'preview section';
+    $scope.particleData = null;
+    $scope.$on('applyParticle', function(event, particleData) {
+      $scope.particleData = particleData;
+      $scope.$apply();
     });
+  });
 
-    $('footer em').text(AnthParticle.VERSION);
-
-    var xmlData = '';
-
-    return {
-      stop: function() {
-        particle.stop();
-      },
-      play: function() {
-        particle.play();
-      },
-      pause: function() {
-        particle.pause();
-      },
-      start: function() {
-
-        xmlData = xmlEditor.getValue();
-        var imgData = document.getElementById('imgRes');
-
-
-        setTimeout(function() {
-          particle.reload(new AnthParticleXmlLoader({
-            data: xmlData,
-            image: imgData
-          }), function(err) {
-            if(err) {
-              throw err;
-            }
-            particle.start();
-          });
-        }, 0);
-
-      },
-      setImage: function(event) {
-        var file = event.target.files[0];
-
-        if(!file.type.match('image.*')) {
-          alert('Image Error!!');
-          return ;
-        }
-
-        var reader = new FileReader();
-        var imgInput = $('#imgRes')[0];
-        reader.onload = function(e) {
-          imgInput.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-      },
-      pack: function() {
-
-        xmlData = xmlEditor.getValue();
-        var imgData = document.getElementById('imgRes');
-
-        var cvs = document.createElement('canvas');
-        cvs.width = imgData.width;
-        cvs.height = imgData.height;
-        cvs.getContext('2d').drawImage(imgData, 0, 0);
-        var dataUrl = cvs.toDataURL();
-        var base64Str = dataUrl.split(',')[1];
-        var mimeStr = dataUrl.split(',')[0].split(':')[1].split(';')[0];
-        var imgFile = base64toBlob(base64Str, mimeStr);
-        // var imgFile = new Blob(ia, {type: mimeStr});
-
-        var fd = new FormData();
-        fd.append('image', imgFile);
-        fd.append('xmlData', xmlData);
-        $.ajax({
-          url: '/pack',
-          type: 'POST',
-          data: fd,
-          enctype: 'multipart/form-data',
-          processData: false,
-          contentType: false
-        })
-        .success(function(data) {
-          $('#zipFile')
-            .prop('href', data.zipFile)
-            .text(data.zipFile);
-        })
-        .fail(function(err) {
-          alert('Error! ');
-        });
-
-      },
-      toJson: function() {
-        xmlData = xmlEditor.getValue();
-        AnthParticleXmlLoader.parse(xmlData, function(err, json) {
-          $('#jsonDiv').text(JSON.stringify(json, false, ' '));
-        });
-      }
-    }
-  })();
-
-  window.app = app;
-
-  function base64toBlob(base64Data, contentType) {
-      contentType = contentType || '';
-      var sliceSize = 1024;
-      var byteCharacters = atob(base64Data);
-      var bytesLength = byteCharacters.length;
-      var slicesCount = Math.ceil(bytesLength / sliceSize);
-      var byteArrays = new Array(slicesCount);
-
-      for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-          var begin = sliceIndex * sliceSize;
-          var end = Math.min(begin + sliceSize, bytesLength);
-
-          var bytes = new Array(end - begin);
-          for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
-              bytes[i] = byteCharacters[offset].charCodeAt(0);
-          }
-          byteArrays[sliceIndex] = new Uint8Array(bytes);
-      }
-      return new Blob(byteArrays, { type: contentType });
-  }
-});
+})();
