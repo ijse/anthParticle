@@ -12,7 +12,7 @@ $(function() {
   // get xml
   $.ajax({
     type: 'GET',
-    url: './data/config.xml',
+    url: './data/smallFlower/config.xml',
     dataType: 'text'
   }).success(function(data) {
 
