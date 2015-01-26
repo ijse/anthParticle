@@ -12,7 +12,7 @@
     var curParticle = null;
     var menus = [
       {
-        name: '动效库',
+        name: '选择动效',
         list: [
           {
             name: 'snow',
