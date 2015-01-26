@@ -49,6 +49,11 @@
             image: '/data/star/_cyPic',
             data: '/data/star/config.xml'
           },
+          {
+            name: 'snowManager',
+            image: '/data/snowManager/_cyPic',
+            data: '/data/snowManager/config.xml'
+          }
 
         ]
       }

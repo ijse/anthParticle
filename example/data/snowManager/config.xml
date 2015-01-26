@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<scene>
+    <pic_name>particle/snowManager/_cyPic</pic_name>
+    <width_height>720,1280</width_height>
+    <src_scale>1.0,1.0</src_scale>
+    <max>30</max>
+    <touch_mode>60,1</touch_mode><!-- interval,num -->
+    <model>
+        <chance_range>0,.5</chance_range>
+		<active_time>1700,2600</active_time><!-- min,max -->
+        <src_ltwh>149,0,50,43</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-210,-210,420,420</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,40,30</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1.2,1.5,0.2,0.4</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.5,.7</chance_range>
+		<active_time>1700,2600</active_time><!-- min,max -->
+        <src_ltwh>0,0,56,56</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-270,-270,540,540</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,28,28</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>.8,1,0.2,0.4</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.7,.8</chance_range>
+		<active_time>2000,2600</active_time><!-- min,max -->
+        <src_ltwh>58,0,24,24</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-210,-210,420,420</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,12,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,1.2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.8,.9</chance_range>
+		<active_time>2000,2600</active_time><!-- min,max -->
+        <src_ltwh>84,0,24,24</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-210,-210,420,420</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,12,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,1.2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.9,.95</chance_range>
+		<active_time>2000,2600</active_time><!-- min,max -->
+        <src_ltwh>110,0,20,20</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-210,-210,420,420</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,10,10</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,1.2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.95,1</chance_range>
+		<active_time>2000,2600</active_time><!-- min,max -->
+        <src_ltwh>132,0,24,24</src_ltwh>
+		<move_from_rect>-5,-5,10,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>-210,-210,420,420</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,12,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>150,255,.1,.9</alpha><!-- min,max -->
+		<scale>1,1.2,0,0.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+</scene>
