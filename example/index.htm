@@ -51,15 +51,15 @@
 
           <md-tabs class="md-accent" md-selected="data.selectedIndex">
             <md-tab id="tab1" aria-controls="tab1-content">
-              表单
+              设计
             </md-tab>
             <md-tab id="tab3" aria-controls="tab3-content">
-              Xml Data
+              数据
             </md-tab>
           </md-tabs>
         </div>
         <div layout="column" id="previewPanel" ng-controller="previewController" layout-align="start center" layout-padding>
-          <ng-anth-particle fps="60" args="particleData"  class="md-whiteframe-z1"></ng-anth-particle>
+          <ng-anth-particle fps="60" args="particleData" class="md-whiteframe-z1"></ng-anth-particle>
           <section layout="row" layout-align="start center" layout-padding>
             <md-button class="md-raised">换背景</md-button>
           </section>
@@ -81,5 +81,6 @@
   <script src="./js/modules/anthParticle-directive.js"></script>
 
   <script src="./js/main.js"></script>
+  <script src="./js/controller/previewController.js"></script>
 </body>
 </html>
