@@ -47,13 +47,30 @@
       </md-toolbar>
 
       <md-content layout="row" md-scroll-y flex class="md-padding">
-        <div ng-view flex layout-fill>
+        <div ng-view flex layout-fill  class="md-whiteframe-z1">
 
           <md-tabs class="md-accent" md-selected="data.selectedIndex">
-            <md-tab id="tab1" aria-controls="tab1-content">
-              设计
+            <md-tab id="tab1" aria-controls="tab1-content" label="设计">
+              <form name="particleForm">
+                <md-card layout="column">
+                  <md-subheader class="md-primary">Unread Messages</md-subheader>
+                  <md-content layout="row">
+                    <md-input-container>
+                      <label>Name</label>
+                      <input ng-model="particle.name">
+                    </md-input-container>
+
+                    <md-input-container>
+                      <label>Tag</label>
+                      <input ng-model="particle.tag">
+                    </md-input-container>
+                  </md-content>
+                </md-card>
+
+              </form>
+
             </md-tab>
-            <md-tab id="tab3" aria-controls="tab3-content">
+            <md-tab id="tab3" aria-controls="tab3-content" label="数据">
               数据
             </md-tab>
           </md-tabs>
