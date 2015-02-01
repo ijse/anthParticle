@@ -113,6 +113,9 @@ function AnthParticle(options, callback) {
   this._id = options.id || ('id_' + (+ new Date()));
   this._canvas = options.canvas;
 
+  // On which element catch touch/mouse events for touch mode
+  this.touchElement = options.touchElement || this._canvas;
+
   this.loader = options.loader;
 
   this.curScene = null;
@@ -151,6 +154,7 @@ AnthParticle.prototype.reload = function(newLoader, callback) {
       _this.curScene = new Scene({
         canvas: _this._canvas,
         image: pic,
+        touchElement: _this.touchElement,
         data: data.scene
       });
 
@@ -488,7 +492,6 @@ function Scene(options) {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
-    // On which element catch touch/mouse events for touch mode
     this.touchElement = options.touchElement || this.canvas;
 
     this.maxModels = options.data.max.values[0];
@@ -586,7 +589,7 @@ Scene.prototype.configTouch = function(data) {
         _this.status.isTouching = false;
     };
 
-    // Update mouse postioin on event mouseover
+    // Update mouse position on event mouseover
     _this.touchElement.removeEventListener('mousemove', updateMousePosition, true);
     _this.touchElement.addEventListener('mousemove', updateMousePosition, true);
 
@@ -1568,7 +1571,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "",
   "main": "index.js",
   "scripts": {
