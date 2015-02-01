@@ -40,7 +40,7 @@ Emitter.prototype.randomModel = function() {
     return luckyList[0][1];
 };
 
-Emitter.prototype.fire = function(useModel) {
+Emitter.prototype.fire = function(offsetVector) {
     var _this = this;
     var modelData = this.randomModel();
 
@@ -69,7 +69,7 @@ Emitter.prototype.fire = function(useModel) {
         model = new Model(modelData, imageLoader);
     }
 
-    model.initPosition(this.sceneWidth, this.sceneHeight);
+    model.initPosition(this.sceneWidth, this.sceneHeight, offsetVector);
 
     return model;
 };
@@ -155,6 +155,7 @@ AnthParticle.prototype.reload = function(newLoader, callback) {
       });
 
       _this.status.loaded = true;
+      _this.status.touchMode = !!data.scene.touch_mode;
 
       _this.stop();
     }
@@ -231,6 +232,7 @@ AnthParticle.prototype.stop = function() {
 // can be overrided
 AnthParticle.prototype.tick = function(timePassed, fps) {
 
+
   // current scene render
   this.curScene.render(timePassed, fps);
 
@@ -289,10 +291,12 @@ Model.prototype.initAffects = function() {
  * Initialize position data
  * @param  {number} width  scene width
  * @param  {number} height scene height
+ * @param  {Vector} offset position to oriPosition and destPosition
  */
-Model.prototype.initPosition = function(width, height) {
+Model.prototype.initPosition = function(width, height, offsetPos) {
   var oriValues = this.data.move_from_rect.values;
   var destValues = this.data.move_to_rect.values;
+  offsetPos = offsetPos instanceof Vector ? offsetPos : Vector.zero;
 
   function genPos(ltwh, offsetPos) {
     offsetPos = offsetPos || Vector.zero;
@@ -326,9 +330,9 @@ Model.prototype.initPosition = function(width, height) {
   var distance = destPosition.subtract(oriPosition);
   var velocity = distance.divide(this.life);
 
-  this.oriPosition = oriPosition;
+  this.oriPosition = oriPosition.add(offsetPos);
   this.position = oriPosition.copy();
-  this.destPosition = destPosition;
+  this.destPosition = destPosition.add(offsetPos);
   this.velocity = velocity;
 
   this.initRotation();
@@ -495,7 +499,9 @@ function Scene(options) {
 
     this.status = {
         atStart: true,
-        totalever: 0
+        totalever: 0,
+
+        isTouching: false
     };
 
     var w = options.image.width;
@@ -519,6 +525,7 @@ function Scene(options) {
 
     debug('initial throttle interval: ', this.initialInterval);
 
+    this.configTouch(options.data.touch_mode);
 }
 
 function calculateThrottleInterval(max, models) {
@@ -537,7 +544,55 @@ function calculateThrottleInterval(max, models) {
     return result;
 }
 
-Scene.prototype.render = function(timePassed, fps) {
+/**
+ * Touch mode settings
+ * @param  {object} data {values:[]}
+ */
+Scene.prototype.configTouch = function(data) {
+    if(!data || !data.values) {
+        this.touchConfig = null;
+        return ;
+    }
+    var _this = this;
+    var touchInterval = data.values[0];
+    var touchNum = data.values[1];
+
+    _this.touchConfig = {
+        interval: data.values[0],
+        num: data.values[1],
+        position: Vector.zero
+    };
+
+    // new throttled function
+    this._hireActorThrottled = util.throttle(hire, touchInterval/touchNum);
+
+    var updateMousePosition = util.throttle(function(event) {
+        var delX = event.currentTarget.width / event.currentTarget.offsetWidth;
+        var delY = event.currentTarget.height / event.currentTarget.offsetHeight;
+        _this.touchConfig.position = new Vector(event.offsetX*delX, event.offsetY*delY);
+        debug('------At:', _this.touchConfig.position);
+    }, 10);
+
+    var startTouch = function(event) {
+        debug('start touching');
+        _this.status.isTouching = true;
+    };
+
+    var stopTouch = function(event) {
+        debug('stop touching');
+        _this.status.isTouching = false;
+    };
+
+    // Update mouse postioin on event mouseover
+    _this.canvas.removeEventListener('mousemove', updateMousePosition, true);
+    _this.canvas.addEventListener('mousemove', updateMousePosition, true);
+
+    // Update status
+    _this.canvas.addEventListener('mouseenter', startTouch);
+    _this.canvas.addEventListener('mouseleave', stopTouch);
+};
+
+Scene.prototype.render = function(timePassed) {
     var cvs = this.canvas;
     var ctx = this.canvas.getContext('2d');
     var nowTime = Date.now();
@@ -548,10 +603,11 @@ Scene.prototype.render = function(timePassed, fps) {
 
     // debug('time passed: ', timePassed);
 
-
     // Create new actor if need
     if(this.actorList.length < this.maxModels) {
-        if(this.status.atStart) {
+        if(!this.status.isTouching && this.touchConfig) {
+            222;
+        } else if(this.status.atStart) {
             agep = util.getRandom(0, this.initialAgep);
             this.hireActor(agep, true);
             debug('hire actor with throttled');
@@ -589,13 +645,14 @@ Scene.prototype.render = function(timePassed, fps) {
  * @param  {number} agep 0~100
  * @return {object} the new actor
  */
- function hire(scene, agep) {
+ function hire(_this, agep) {
      var newActor = null;
-     newActor = scene.emitter.fire();
+     var pos = _this.touchConfig ? _this.touchConfig.position : null;
+     newActor = _this.emitter.fire(pos);
 
      var age = newActor.life * (agep%100) / 100;
      newActor.setAge(age);
-     scene.actorList.push(newActor);
+     _this.actorList.push(newActor);
 
      return newActor;
  }
