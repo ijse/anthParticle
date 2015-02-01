@@ -488,6 +488,9 @@ function Scene(options) {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
+    // On which element catch touch/mouse events for touch mode
+    this.touchElement = options.touchElement || this.canvas;
+
     this.maxModels = options.data.max.values[0];
     this.gravity = options.gravity || 0;
     this.actorList = [];
@@ -569,7 +572,7 @@ Scene.prototype.configTouch = function(data) {
     var updateMousePosition = util.throttle(function(event) {
         var delX = event.currentTarget.width / event.currentTarget.offsetWidth;
         var delY = event.currentTarget.height / event.currentTarget.offsetHeight;
-        _this.touchConfig.position = new Vector(event.offsetX*delX, event.offsetY*delY);
+        this.updatePosition(event.offsetX*delX, event.offsetY*delY);
         debug('------At:', _this.touchConfig.position);
     }, 10);
 
@@ -584,12 +587,19 @@ Scene.prototype.configTouch = function(data) {
     };
 
     // Update mouse postioin on event mouseover
-    _this.canvas.removeEventListener('mousemove', updateMousePosition, true);
-    _this.canvas.addEventListener('mousemove', updateMousePosition, true);
+    _this.touchElement.removeEventListener('mousemove', updateMousePosition, true);
+    _this.touchElement.addEventListener('mousemove', updateMousePosition, true);
 
     // Update status
-    _this.canvas.addEventListener('mouseenter', startTouch);
-    _this.canvas.addEventListener('mouseleave', stopTouch);
+    _this.touchElement.addEventListener('mouseenter', startTouch);
+    _this.touchElement.addEventListener('mouseleave', stopTouch);
+};
+
+Scene.prototype.updatePosition = function(x, y) {
+    if(!this.touchConfig) {
+        return ;
+    }
+    this.touchConfig.position.set(x, y);
 };
 
 Scene.prototype.render = function(timePassed) {
@@ -848,7 +858,8 @@ Vector.prototype = {
     subtract: function(v) { return new Vector(this.x - v.x, this.y - v.y); },
     multiply: function(f) { return new Vector(this.x * f, this.y * f); },
     divide: function(f) { var invf = 1/f; return new Vector(this.x * invf, this.y * invf); },
-    dot: function(v) { return this.x * v.x + this.y * v.y; }
+    dot: function(v) { return this.x * v.x + this.y * v.y; },
+    set: function(x, y) { this.x = x; this.y = y; return this; }
 };
 
 Vector.zero = new Vector(0, 0);
@@ -1557,7 +1568,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
