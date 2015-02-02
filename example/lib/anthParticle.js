@@ -566,7 +566,7 @@ Scene.prototype.configTouch = function(data) {
     _this.touchConfig = {
         interval: data.values[0],
         num: data.values[1],
-        position: Vector.zero
+        position: Vector.zero.copy()
     };
 
     // new throttled function
@@ -1577,7 +1577,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "",
   "main": "index.js",
   "scripts": {
