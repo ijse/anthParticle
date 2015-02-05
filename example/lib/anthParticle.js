@@ -231,6 +231,7 @@ AnthParticle.prototype.stop = function() {
   debug('stop play animation frames');
   this.animationFrame.cancel(this.frameId);
   this.status.animating = false;
+  this.curScene.destroy();
 };
 
 // can be overrided
@@ -597,9 +598,10 @@ Scene.prototype.configTouch = function(data) {
 
     // Update mouse position on event mouseover
     _this.touchElement.removeEventListener('mousemove', updateMousePosition, true);
-    _this.touchElement.addEventListener('mousemove', updateMousePosition, true);
+    _this.touchElement.removeEventListener('mouseenter', startTouch);
+    _this.touchElement.removeEventListener('mouseleave', stopTouch);
 
-    // Update status
+    _this.touchElement.addEventListener('mousemove', updateMousePosition, true);
     _this.touchElement.addEventListener('mouseenter', startTouch);
     _this.touchElement.addEventListener('mouseleave', stopTouch);
 };
@@ -702,11 +704,17 @@ Scene.prototype.fireActors = function(actorIds) {
         // Push in pool for reusing.
         this.emitter.addToPool(deadActor);
 
-        this.actorList[deadActorId] = this.actorList[this.actorList.length-1];
-        this.actorList.length --;
-        actorIds.length --;
+        this.actorList[deadActorId] = this.actorList.pop();
+        actorIds.pop();
         debug('actor die', deadActorId);
     }
+};
+
+/**
+ * Destroy all and release memory in case leaks
+ */
+Scene.prototype.destroy = function() {
+
 };
 
 module.exports = Scene;
@@ -1577,7 +1585,7 @@ function plural(ms, n, name) {
 },{}],11:[function(_dereq_,module,exports){
 module.exports={
   "name": "anthParticle",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "",
   "main": "index.js",
   "scripts": {
