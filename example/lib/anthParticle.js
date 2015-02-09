@@ -274,6 +274,7 @@ function Model(data, imageLoad) {
   var imgData = imageLoad(data['src_ltwh'].values);
   this.image = imgData.image;
   this.imageCanvas = imgData.canvas;
+  imgData = null;
 
   this.initAffects();
 }
@@ -714,7 +715,8 @@ Scene.prototype.fireActors = function(actorIds) {
  * Destroy all and release memory in case leaks
  */
 Scene.prototype.destroy = function() {
-
+    // this.actorList = [];
+    // this.emitter = null;
 };
 
 module.exports = Scene;
