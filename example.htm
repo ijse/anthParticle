@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="anthParticleApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+  <title>AnthParticle Playground</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+  <div layout="row" layout-fill>
+    <md-sidenav layout="column" style="overflow: hidden; display: flex;"
+      class="site-sidenav md-sidenav-left md-whiteframe-z2"
+      md-component-id="left" md-is-locked-open="$media('gt-sm')">
+      <md-toolbar>
+        <h1 class="md-toolbar-tools">
+          <a href="#"> AnthParticle </a>
+        </h1>
+      </md-toolbar>
+      <md-content flex style="overflow: auto;">
+        <div ng-repeat="m in menus"
+          md-highlight md-ink-ripple="#bbb">
+
+          <button class="menu-item menu-title md-menu-item" md-highlight='false'>
+            {{m.name}}
+          </button>
+
+          <a ng-repeat="s in m.list" ng-click="applyParticle(s);"
+            class="menu-item menu-sub-item md-menu-item"
+            md-highlight='false' md-ink-ripple='false'>
+            <span>{{s.name}}</span>
+          </a>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row" layout-padding layout-align="center center">
+          <md-button class="md-raised md-primary"> Package This </md-button>
+        </div>
+      </md-content>
+    </md-sidenav>
+
+    <div layout="column" layout-fill tabIndex="-1" role="main">
+
+      <md-toolbar>
+        <h1 class="md-toolbar-tools">
+          动效调整和预览
+        </h1>
+      </md-toolbar>
+
+      <md-content layout="row" md-scroll-y flex class="md-padding">
+        <div ng-view flex layout-fill  class="md-whiteframe-z1">
+
+          <md-tabs class="md-accent" md-selected="data.selectedIndex">
+            <md-tab id="tab1" aria-controls="tab1-content" label="设计">
+              <form name="particleForm">
+                <md-card layout="column">
+                  <md-subheader class="md-primary">Unread Messages</md-subheader>
+                  <md-content layout="row">
+                    <md-input-container>
+                      <label>Name</label>
+                      <input ng-model="particle.name">
+                    </md-input-container>
+
+                    <md-input-container>
+                      <label>Tag</label>
+                      <input ng-model="particle.tag">
+                    </md-input-container>
+                  </md-content>
+                </md-card>
+
+              </form>
+
+            </md-tab>
+            <md-tab id="tab3" aria-controls="tab3-content" label="数据">
+              数据
+            </md-tab>
+          </md-tabs>
+        </div>
+        <div layout="column" id="previewPanel" ng-controller="previewController" layout-align="start center" layout-padding>
+          <ng-anth-particle fps="60" args="particleData" class="md-whiteframe-z1"></ng-anth-particle>
+          <section layout="row" layout-align="start center" layout-padding>
+            <md-button class="md-raised">换背景</md-button>
+          </section>
+        </div>
+      </md-content>
+
+    </div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-aria.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.js"></script>
+
+  <script src="./lib/debug.js"></script>
+  <script src="./lib/anthParticle.js"></script>
+  <script src="./lib/anthParticle.xmlLoader.js"></script>
+  <script src="./js/modules/anthParticle-directive.js"></script>
+
+  <script src="./js/main.js"></script>
+  <script src="./js/controller/previewController.js"></script>
+</body>
+</html>

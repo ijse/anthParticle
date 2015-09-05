@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Test anthParticle</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="lib/codemirror/codemirror.css" />
+  <link rel="stylesheet" href="lib/codemirror/lesser-dark.css" />
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+
+  <div class="wrap">
+    <h1>  Test anthParticle here. </h1>
+
+    <div class="col-left">
+      <canvas id="my"></canvas>
+
+      <div class="control-buttons">
+        <button id="startBtn" onclick="app.start()">Load&amp;Start</button>
+
+        <button id="pauseBtn" onclick="app.play()">Play</button>
+        <button id="pauseBtn" onclick="app.pause()">Pause</button>
+
+        <button id="stopBtn" onclick="app.stop()">Stop</button>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div>
+        <label>Image: </label>
+        <img id="imgRes" src="data/snowManager/_cyPic" />
+        <input type="file" id="uploadImage" onchange="app.setImage(event, this)" />
+      </div>
+
+      <div class="xmlDiv">
+        <label>XmlData: </label>
+        <button onclick="app.pack()">Pack</button>
+        <button onclick="app.toJson()">toJson</button>
+        <a href id="zipFile" target="_blank"></a>
+        <textarea id="xmlEditor"></textarea>
+      </div>
+    </div>
+
+    <div id="jsonDiv"></div>
+
+    <footer>
+      <p>Version: <em>-</em></p>
+    </footer>
+  </div>
+
+  <script src="lib/jquery.js"></script>
+  <script src="lib/fpsmeter.min.js"></script>
+  <script src="lib/codemirror/codemirror.js"></script>
+  <script src="lib/codemirror/xml/xml.js"></script>
+  <script src="lib/debug.js"></script>
+  <script src="lib/anthParticle.js"></script>
+  <script src="lib/anthParticle.xmlLoader.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+</html>

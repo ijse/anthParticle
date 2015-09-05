@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<scene>
+    <width_height>720,1280</width_height>
+    <src_scale>1.0,1.0</src_scale>
+    <max>27</max>
+    <model>
+        <!-- 圆形 -->
+        <chance_range>0,.05</chance_range>
+		<active_time>3000,5000</active_time><!-- min,max -->
+        <src_ltwh>26,0,18,20</src_ltwh>
+		<move_from_rect>-50,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>offset:50,1280,60,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,8,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>220,255,.1,.9</alpha><!-- min,max -->
+		<scale>1.2,2,1,1.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <!-- 椭圆 -->
+        <chance_range>.05,.1</chance_range>
+		<active_time>3000,5000</active_time><!-- min,max -->
+        <src_ltwh>0,13,20,14</src_ltwh>
+		<move_from_rect>-50,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>offset:50,1280,60,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,12,8</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>220,255,.1,.9</alpha><!-- min,max -->
+		<scale>1.2,2,1,1.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.1,.4</chance_range>
+		<active_time>6000,10000</active_time><!-- min,max -->
+        <src_ltwh>12,0,12,11</src_ltwh>
+		<move_from_rect>-50,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>offset:50,1280,60,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,12,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>220,255,.1,.9</alpha><!-- min,max -->
+		<scale>2,2.4,1,1.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.4,.7</chance_range>
+		<active_time>7000,11000</active_time><!-- min,max -->
+        <src_ltwh>0,0,10,11</src_ltwh>
+		<move_from_rect>-50,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>offset:50,1280,60,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,10,10</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>220,255,.1,.9</alpha><!-- min,max -->
+		<scale>2,2.4,1,1.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+    <model>
+        <chance_range>.7,1</chance_range>
+		<active_time>6000,8000</active_time><!-- min,max -->
+        <src_ltwh>46,0,12,10</src_ltwh>
+		<move_from_rect>-50,-10,match_parent,10</move_from_rect><!-- left,top,w,h -->
+		<move_to_rect>offset:50,1280,60,10</move_to_rect><!-- left,top,w,h -->
+        <rotate>0,100,500,600,2,12</rotate><!-- minfrom,maxfrom,minTo,maxTo,rtX,rtY -->
+		<alpha>220,255,.1,.9</alpha><!-- min,max -->
+		<scale>2,2.4,1,1.2</scale><!-- minfrom,maxfrom,minTo,maxTo -->
+    </model>
+</scene>
