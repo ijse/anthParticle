@@ -3,7 +3,7 @@ anthParticle
 
 粒子动画引擎Js版本，兼容Android端动态壁纸文件格式(`example/data/config.xml`)。
 
-使用方式参考example(`example/index.html`)
+使用方式参考example(`example/index.html`), [在线Demo](http://ijse.github.io/anthParticle/example.htm)
 
 # 说明
 
