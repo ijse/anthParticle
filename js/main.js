@@ -16,43 +16,43 @@
         list: [
           {
             name: 'snow',
-            image: '/data/snow/_cyPic',
-            data: '/data/snow/config.xml'
+            image: './data/snow/_cyPic',
+            data: './data/snow/config.xml'
           },
           {
             name: 'snow2',
-            image: '/data/snow2/_cyPic',
-            data: '/data/snow2/config.xml'
+            image: './data/snow2/_cyPic',
+            data: './data/snow2/config.xml'
           },
           {
             name: 'snow3',
-            image: '/data/snow3/_cyPic',
-            data: '/data/snow3/config.xml'
+            image: './data/snow3/_cyPic',
+            data: './data/snow3/config.xml'
           },
           {
             name: 'flower',
-            image: '/data/flower/_cyPic',
-            data: '/data/flower/config.xml'
+            image: './data/flower/_cyPic',
+            data: './data/flower/config.xml'
           },
           {
             name: 'smallFlower',
-            image: '/data/smallFlower/_cyPic',
-            data: '/data/smallFlower/config.xml'
+            image: './data/smallFlower/_cyPic',
+            data: './data/smallFlower/config.xml'
           },
           {
             name: 'rain',
-            image: '/data/rain/_cyPic',
-            data: '/data/rain/config.xml'
+            image: './data/rain/_cyPic',
+            data: './data/rain/config.xml'
           },
           {
             name: 'star',
-            image: '/data/star/_cyPic',
-            data: '/data/star/config.xml'
+            image: './data/star/_cyPic',
+            data: './data/star/config.xml'
           },
           {
             name: 'snowManager',
-            image: '/data/snowManager/_cyPic',
-            data: '/data/snowManager/config.xml'
+            image: './data/snowManager/_cyPic',
+            data: './data/snowManager/config.xml'
           }
 
         ]
