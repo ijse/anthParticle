@@ -16,42 +16,42 @@
         list: [
           {
             name: 'snow',
-            image: './data/snow/_cyPic',
+            image: './data/snow/_cyPic.png',
             data: './data/snow/config.xml'
           },
           {
             name: 'snow2',
-            image: './data/snow2/_cyPic',
+            image: './data/snow2/_cyPic.png',
             data: './data/snow2/config.xml'
           },
           {
             name: 'snow3',
-            image: './data/snow3/_cyPic',
+            image: './data/snow3/_cyPic.png',
             data: './data/snow3/config.xml'
           },
           {
             name: 'flower',
-            image: './data/flower/_cyPic',
+            image: './data/flower/_cyPic.png',
             data: './data/flower/config.xml'
           },
           {
             name: 'smallFlower',
-            image: './data/smallFlower/_cyPic',
+            image: './data/smallFlower/_cyPic.png',
             data: './data/smallFlower/config.xml'
           },
           {
             name: 'rain',
-            image: './data/rain/_cyPic',
+            image: './data/rain/_cyPic.png',
             data: './data/rain/config.xml'
           },
           {
             name: 'star',
-            image: './data/star/_cyPic',
+            image: './data/star/_cyPic.png',
             data: './data/star/config.xml'
           },
           {
             name: 'snowManager',
-            image: './data/snowManager/_cyPic',
+            image: './data/snowManager/_cyPic.png',
             data: './data/snowManager/config.xml'
           }
 
